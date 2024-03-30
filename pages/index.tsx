@@ -1,5 +1,6 @@
 import React from "react";
 import parse from "html-react-parser";
+import Head from "next/head";
 
 import Header from "@/components/header";
 import PostList from "@/components/postList";
@@ -22,7 +23,7 @@ function Home({
 }) {
   return (
     <>
-      <head>{parse(head.head + options.site_favicon)}</head>
+      <Head>{parse(head.head + options.site_favicon)}</Head>
       <WpImage
         alt={options.name}
         url={options.site_background_url}

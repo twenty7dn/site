@@ -1,5 +1,6 @@
 import React from "react";
 import parse from "html-react-parser";
+import Head from "next/head";
 
 import SinglePost from "@/components/singlePost";
 import SinglePage from "@/components/singlePage";
@@ -23,7 +24,7 @@ export default function PostPage({
 }) {
   return (
     <>
-      <head>{parse(head.head + options.site_favicon)}</head>
+      <Head>{parse(head.head + options.site_favicon).toString()}</Head>
       <WpImage
         alt={options.name}
         url={options.site_background_url}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ImgixClient from "@imgix/js-core";
 
 interface ImageDetail {
   width: number;
@@ -26,6 +27,11 @@ const WpImage: React.FC<WpImageProps> = ({
   src,
   size,
 }) => {
+  const client = new ImgixClient({
+    domain: process.env.IMGIX_HOST as string,
+    includeLibraryParam: false,
+  });
+
   // State to store the fetched URLs
   const [srcSets, setSrcSets] = useState<Record<string, string>>({});
 
@@ -41,32 +47,19 @@ const WpImage: React.FC<WpImageProps> = ({
     const fetchSignedUrls = async () => {
       const allPromises = Object.entries(src).flatMap(([mediaQuery, details]) =>
         details.map(async (detail) => {
-          const params = new URLSearchParams({
-            url,
+          // Adjust the path to be relative to the root
+          const path = url.replace(
+            `${process.env.WORDPRESS_HOST}/wp-content/uploads/`,
+            "/",
+          );
+          const signedUrl = client.buildURL(path, {
             w: detail.width.toString(),
             h: detail.height.toString(),
             "fp-x": (focalPoint[0] / 100).toString(),
             "fp-y": (focalPoint[1] / 100).toString(),
           });
 
-          // Prepare fetch requests for avif and webp formats
-          const avifPromise = fetch(`/api/imgix?${params}&fm=avif`).then(
-            (res) => res.json(),
-          );
-          const webpPromise = fetch(`/api/imgix?${params}&fm=webp`).then(
-            (res) => res.json(),
-          );
-
-          const [avifRes, webpRes] = await Promise.all([
-            avifPromise,
-            webpPromise,
-          ]);
-
-          // Construct unique keys for storing URLs
-          const avifKey = `${mediaQuery}-avif`;
-          const webpKey = `${mediaQuery}-webp`;
-
-          return { [avifKey]: avifRes.url, [webpKey]: webpRes.url };
+          return { [mediaQuery]: signedUrl };
         }),
       );
 
@@ -88,20 +81,15 @@ const WpImage: React.FC<WpImageProps> = ({
         details.map((detail, detailIndex) => (
           <React.Fragment key={`${mediaQuery}-${detailIndex}`}>
             <source
-              srcSet={srcSets[`${mediaQuery}-avif`]}
+              srcSet={srcSets[mediaQuery]}
               media={mediaQuery}
-              type="image/avif"
-            />
-            <source
-              srcSet={srcSets[`${mediaQuery}-webp`]}
-              media={mediaQuery}
-              type="image/webp"
+              type="image/jpeg" // Adjust the type based on your image format
             />
           </React.Fragment>
         )),
       )}
       <img
-        src={srcSets[`${Object.keys(src)[0]}-webp`]} // Fallback to the first webp URL
+        src={srcSets[Object.keys(src)[0]]} // Fallback to the first URL
         alt={alt}
         width={Object.values(src)[0][0].width}
         height={Object.values(src)[0][0].height}
