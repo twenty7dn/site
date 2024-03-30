@@ -133,7 +133,7 @@ function SinglePost({
             <React.Fragment key={post.id}>
               <Post key={post.id} data={post} single={true} />
               <div
-                className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] 1.5xl:flex-row xl:before:w-[64px]`}
+                className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] xl:before:w-[64px] 2xl:flex-row`}
               >
                 <div
                   className={`prose-dropcap prose prose-lg ml-[72px] mr-6 max-w-full py-8 prose-strong:font-sans xl:ml-[96px] xl:mr-0 xl:w-2/3`}
@@ -344,7 +344,7 @@ function SinglePost({
             <React.Fragment key={post.id}>
               <PostNoBanner key={post.id} data={post} single={true} />
               <div
-                className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] 1.5xl:flex-row xl:before:w-[64px]`}
+                className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] xl:before:w-[64px] 2xl:flex-row`}
               >
                 <div
                   className={`prose-dropcap prose prose-lg ml-[72px] mr-6 max-w-full py-8 prose-strong:font-sans xl:ml-[96px] xl:mr-0 xl:w-2/3`}
