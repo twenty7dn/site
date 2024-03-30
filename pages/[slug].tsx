@@ -24,7 +24,7 @@ export default function PostPage({
 }) {
   return (
     <>
-      <Head>{parse(head.head + options.site_favicon).toString()}</Head>
+      <Head>{parse(head.head + options.site_favicon)}</Head>
       <WpImage
         alt={options.name}
         url={options.site_background_url}
