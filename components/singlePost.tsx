@@ -6,14 +6,13 @@ import parse, { domToReact } from "html-react-parser";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/dist/backdrop.css";
 import "tippy.js/animations/shift-away.css";
-import dynamic from "next/dynamic";
 
 import Post from "@/components/post";
 import PostNoBanner from "@/components/postNoBanner";
 import Blocks from "@/components/blocks";
 import Footer from "@/components/footer";
+import WpImage from "@/components/WpImage";
 
-const WpImage = dynamic(() => import("@/components/WpImage"), { ssr: true });
 function SinglePost({
   post,
   latestPosts,
@@ -110,7 +109,7 @@ function SinglePost({
             return (
               <a
                 {...attribs}
-                className={`hover:border-b-bright-sun-500 inline-block border-b border-b-transparent font-sans text-sm transition-colors`}
+                className={`inline-block border-b border-b-transparent font-sans text-sm transition-colors hover:border-b-bright-sun-500`}
               >
                 {domToReact(children)}
               </a>
@@ -134,10 +133,10 @@ function SinglePost({
             <React.Fragment key={post.id}>
               <Post key={post.id} data={post} single={true} />
               <div
-                className={`post-content 1.5xl:flex-row bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] xl:before:w-[64px]`}
+                className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] 1.5xl:flex-row xl:before:w-[64px]`}
               >
                 <div
-                  className={`prose prose-lg prose-dropcap prose-strong:font-sans ml-[72px] mr-6 max-w-full py-8 xl:ml-[96px] xl:mr-0 xl:w-2/3`}
+                  className={`prose-dropcap prose prose-lg ml-[72px] mr-6 max-w-full py-8 prose-strong:font-sans xl:ml-[96px] xl:mr-0 xl:w-2/3`}
                 >
                   <Blocks data={post.blocks} />
                 </div>
@@ -161,8 +160,8 @@ function SinglePost({
                             },
                           ],
                         }}
-                        className={`relative z-10 float-right mb-1.5 ml-4 rounded-md`}
-                        alt={post._embedded.author[0].name}
+                        className={`float-right mb-1.5 ml-4 rounded-md`}
+                        alt={options.name}
                         focalPoint={[50, 50]}
                         size={[74, 74]}
                       />
@@ -326,7 +325,7 @@ function SinglePost({
                           <li key={post.id}>
                             <Link
                               href={`/${post.slug}`}
-                              className={`hover:border-b-bright-sun-500 inline-block border-b border-b-transparent font-sans text-sm transition-colors`}
+                              className={`inline-block border-b border-b-transparent font-sans text-sm transition-colors hover:border-b-bright-sun-500`}
                               dangerouslySetInnerHTML={{
                                 __html: post.title.rendered,
                               }}
@@ -345,10 +344,10 @@ function SinglePost({
             <React.Fragment key={post.id}>
               <PostNoBanner key={post.id} data={post} single={true} />
               <div
-                className={`post-content 1.5xl:flex-row bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] xl:before:w-[64px]`}
+                className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] 1.5xl:flex-row xl:before:w-[64px]`}
               >
                 <div
-                  className={`prose prose-lg prose-dropcap prose-strong:font-sans ml-[72px] mr-6 max-w-full py-8 xl:ml-[96px] xl:mr-0 xl:w-2/3`}
+                  className={`prose-dropcap prose prose-lg ml-[72px] mr-6 max-w-full py-8 prose-strong:font-sans xl:ml-[96px] xl:mr-0 xl:w-2/3`}
                 >
                   <Blocks data={post.blocks} />
                 </div>
@@ -534,7 +533,7 @@ function SinglePost({
                           <li key={post.id}>
                             <Link
                               href={`/${post.slug}`}
-                              className={`hover:border-b-bright-sun-500 inline-block border-b border-b-transparent font-sans text-sm transition-colors`}
+                              className={`inline-block border-b border-b-transparent font-sans text-sm transition-colors hover:border-b-bright-sun-500`}
                               dangerouslySetInnerHTML={{
                                 __html: post.title.rendered,
                               }}

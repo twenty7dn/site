@@ -45,8 +45,8 @@ const WpImage: React.FC<WpImageProps> = ({
             url,
             w: detail.width.toString(),
             h: detail.height.toString(),
-            "fp-x": focalPoint[0].toString(),
-            "fp-y": focalPoint[1].toString(),
+            "fp-x": (focalPoint[0] / 100).toString(),
+            "fp-y": (focalPoint[1] / 100).toString(),
           });
 
           // Prepare fetch requests for avif and webp formats

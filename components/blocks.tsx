@@ -3,9 +3,8 @@ import DOMPurify from "isomorphic-dompurify";
 import parse from "html-react-parser";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-import dynamic from "next/dynamic";
+import WpImage from "@/components/WpImage";
 
-const WpImage = dynamic(() => import("@/components/WpImage"), { ssr: true });
 function Blocks({ data }: { data: any }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");

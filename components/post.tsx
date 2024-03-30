@@ -1,9 +1,7 @@
 import React from "react";
 import { format } from "date-fns-tz";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-
-const WpImage = dynamic(() => import("@/components/WpImage"), { ssr: true });
+import WpImage from "@/components/WpImage";
 
 interface PostProps {
   data: any;
@@ -49,7 +47,7 @@ const Post = ({ data, single }: { data: any; single: boolean }) => {
 
             {data.featured_media.credit && (
               <span
-                className={`hover:[&_a]:!text-bright-sun-400 absolute bottom-1.5 right-2 z-20 hidden text-sm text-white/50 transition-colors hover:text-white xl:block [&_a]:text-white/75 [&_a]:transition-colors [&_a]:hover:text-white`}
+                className={`absolute bottom-1.5 right-2 z-20 hidden text-sm text-white/50 transition-colors hover:text-white xl:block [&_a]:text-white/75 [&_a]:transition-colors [&_a]:hover:text-white hover:[&_a]:!text-bright-sun-400`}
                 dangerouslySetInnerHTML={{ __html: data.featured_media.credit }}
               ></span>
             )}
@@ -157,7 +155,7 @@ const Post = ({ data, single }: { data: any; single: boolean }) => {
                 )}
               </span>
               <span
-                className={`from-bright-sun-400 to-bright-sun-600 absolute inset-0 inline-block h-full w-full bg-gradient-to-b bg-clip-text text-transparent`}
+                className={`absolute inset-0 inline-block h-full w-full bg-gradient-to-b from-bright-sun-400 to-bright-sun-600 bg-clip-text text-transparent`}
               >
                 <span
                   className={`pointer-events-auto max-w-max`}

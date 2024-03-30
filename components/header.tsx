@@ -2,9 +2,8 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
-import dynamic from "next/dynamic";
+import WpImage from "@/components/WpImage";
 
-const WpImage = dynamic(() => import("@/components/WpImage"), { ssr: true });
 function Header({
   menu,
   options,
@@ -75,7 +74,7 @@ function Header({
           process.env.FRONTEND_HOST,
         )}
         target={item.target ? item.target : "_self"}
-        className={`text-bright-sun-400 hover:bg-bright-sun-400 relative block pr-2 leading-loose transition-all hover:pl-4 hover:text-black`}
+        className={`relative block pr-2 leading-loose text-bright-sun-400 transition-all hover:bg-bright-sun-400 hover:pl-4 hover:text-black`}
         onClick={closeHeader}
       >
         {item.menu_item_parent > 0 && (
@@ -104,10 +103,10 @@ function Header({
 
   return (
     <header
-      className={`w-full lg:sticky lg:top-0 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ${headerState ? "closed" : "open"} h-auto max-h-max overflow-hidden font-sans lg:h-screen`}
+      className={`w-full lg:sticky lg:top-0 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ${headerState ? "closed" : "open"} h-auto max-h-screen overflow-hidden font-sans lg:h-screen`}
     >
       <div
-        className={`w-full ${headerState ? "h-[calc(100%_-_2.5rem)]" : "h-full"} bg-black/80 backdrop-blur-md backdrop-saturate-200 transition-all`}
+        className={`w-full ${headerState ? "h-[calc(100%_-_2.5rem)]" : "h-full"} transform-gpu bg-black/80 backdrop-blur-md backdrop-saturate-200 transition-transform`}
       >
         <button
           onClick={toggleHeader}
@@ -141,10 +140,10 @@ function Header({
           </span>
         </button>
         <div
-          className={`inner flex w-full flex-col lg:grid lg:w-[200%] lg:grid-cols-2 ${headerState ? "max-h-fit lg:translate-x-0" : "max-h-0 lg:max-h-fit lg:-translate-x-1/2"} transition-all`}
+          className={`inner flex w-full flex-col lg:grid lg:w-[200%] lg:grid-cols-2 ${headerState ? "max-h-fit" : "max-h-0 lg:max-h-fit lg:-translate-x-1/2"} transform-gpu transition-all`}
         >
           <div
-            className={`menu-section h-auto min-h-full lg:h-[calc(100vh-4em)] px-6${headerState && " lg:pb-8"} scrollbar-thin scrollbar-track-black scrollbar-thumb-white/25 overflow-y-auto transition-all lg:order-1 xl:transition-none`}
+            className={`menu-section h-auto px-6 lg:h-[calc(100vh-4em)] ${headerState ? "lg:pb-8" : ""} overflow-y-auto transition-all scrollbar-thin scrollbar-track-black scrollbar-thumb-white/25 lg:order-1 xl:transition-none`}
           >
             <h3 className={`text-md mb-4 mt-8 uppercase text-white/50`}>
               Navigation
@@ -158,7 +157,7 @@ function Header({
                 {latestPosts.map((post: any) => (
                   <li key={post.id}>
                     <Link
-                      className={`text-bright-sun-400 hover:text-bright-sun-500 transition-colors`}
+                      className={`text-bright-sun-400 transition-colors hover:text-bright-sun-500`}
                       href={`/${post.slug}`}
                       onClick={closeHeader}
                       dangerouslySetInnerHTML={{ __html: post.title.rendered }}
@@ -226,7 +225,7 @@ function Header({
                 <Link
                   href={`/`}
                   onClick={closeHeader}
-                  className={`text-bright-sun-400 hover:bg-bright-sun-400 mx-auto mb-2 mt-6 block max-w-max rounded px-1.5 py-1 text-center text-xl font-bold leading-tight transition-colors hover:text-black`}
+                  className={`mx-auto mb-2 mt-6 block max-w-max rounded px-1.5 py-1 text-center text-xl font-bold leading-tight text-bright-sun-400 transition-colors hover:bg-bright-sun-400 hover:text-black`}
                 >
                   <span className={`hidden lg:block`}>{options.name}</span>
                   <span className={`block lg:hidden`}>{options.shortname}</span>
