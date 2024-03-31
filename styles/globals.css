@@ -27,7 +27,7 @@ body {
 }
 
 .inline-link {
-    @apply border-b-bright-sun-400 hover:bg-bright-sun-400 hover:border-b-bright-sun-800 inline-block border-b pb-[3px] text-[14px] font-bold tracking-[0.04em] text-current transition-all;
+    @apply inline-block border-b border-b-bright-sun-400 pb-[3px] text-[14px] font-bold tracking-[0.04em] text-current transition-all hover:border-b-bright-sun-800 hover:bg-bright-sun-400;
 }
 
 .inline-link:disabled {
@@ -35,11 +35,11 @@ body {
 }
 
 .prose a {
-    @apply border-b-bright-sun-400 hover:bg-bright-sun-400 hover:border-b-bright-sun-800 border-b no-underline transition-all;
+    @apply border-b border-b-bright-sun-400 no-underline transition-all hover:border-b-bright-sun-800 hover:bg-bright-sun-400;
 }
 
 .inline-btn {
-    @apply border-b-bright-sun-600 bg-bright-sun-400 hover:bg-bright-sun-500 hover:border-b-bright-sun-700 mb-[6px] mr-[6px] inline-block rounded border-b px-2 py-1 text-[12px] tracking-[0.04em] text-current transition-all;
+    @apply mb-[6px] mr-[6px] inline-block rounded border-b border-b-bright-sun-600 bg-bright-sun-400 px-2 py-1 text-[12px] tracking-[0.04em] text-current transition-all hover:border-b-bright-sun-700 hover:bg-bright-sun-500;
 }
 
 .prose blockquote.prose-quoteless p:first-of-type::before,

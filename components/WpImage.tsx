@@ -97,6 +97,7 @@ const WpImage: React.FC<WpImageProps> = ({
         height={Object.values(src)[0][0].height}
         className={className}
         style={sizeArr}
+        loading="lazy"
       />
     </picture>
   );
