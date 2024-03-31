@@ -36,7 +36,7 @@
   <p align="center">
     Exploration on a budget!
     <br />
-    <a href="https://blog.davidmc.io/" target="_blank">View Site</a>
+    <a href="https://twenty7.tv/" target="_blank">View Site</a>
     ·
     <a href="https://github.com/twenty7dn/site/issues">Report Bug</a>
   </p>
