@@ -103,7 +103,7 @@ function Header({
 
   return (
     <header
-      className={`w-full lg:sticky lg:top-0 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ${headerState ? "closed" : "open"} h-auto max-h-screen overflow-hidden font-sans lg:h-screen`}
+      className={`w-full lg:sticky lg:top-0 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ${headerState ? "closed" : "open"} h-auto max-h-[100dvh] overflow-hidden font-sans lg:h-[100dvh]`}
     >
       <div
         className={`w-full ${headerState ? "h-[calc(100%_-_2.5rem)]" : "h-full"} transform-gpu bg-black/80 backdrop-blur-md backdrop-saturate-200 transition-transform`}
@@ -140,10 +140,10 @@ function Header({
           </span>
         </button>
         <div
-          className={`inner flex w-full flex-col lg:grid lg:w-[200%] lg:grid-cols-2 ${headerState ? "max-h-fit" : "max-h-0 lg:max-h-fit lg:-translate-x-1/2"} transform-gpu transition-all`}
+          className={`inner grid w-full grid-rows-[repeat(2,auto)] lg:w-[200%] lg:grid-cols-2 ${headerState ? "max-h-[calc(100dvh_-_4rem)] overflow-y-auto" : "max-h-0 lg:max-h-fit lg:-translate-x-1/2"} transform-gpu transition-all`}
         >
           <div
-            className={`menu-section h-auto px-6 lg:h-[calc(100vh-4em)] ${headerState ? "lg:pb-8" : ""} overflow-y-auto transition-all scrollbar-thin scrollbar-track-black scrollbar-thumb-white/25 lg:order-1 xl:transition-none`}
+            className={`menu-section h-auto px-6 lg:h-[calc(100dvh-4em)] ${headerState ? "lg:pb-8" : ""} overflow-y-auto transition-all scrollbar-thin scrollbar-track-black scrollbar-thumb-white/25 lg:order-1 xl:transition-none`}
           >
             <h3 className={`text-md mb-4 mt-8 uppercase text-white/50`}>
               Navigation
@@ -196,7 +196,7 @@ function Header({
             </form>
           </div>
           <div
-            className={`home-section -order-1 h-auto overflow-y-auto lg:order-2 xl:h-[calc(100vh-4em)]`}
+            className={`home-section -order-1 h-auto overflow-y-auto lg:order-2 xl:h-[calc(100dvh-4em)]`}
           >
             {options && (
               <>
