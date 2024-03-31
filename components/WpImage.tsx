@@ -81,15 +81,20 @@ const WpImage: React.FC<WpImageProps> = ({
         details.map((detail, detailIndex) => (
           <React.Fragment key={`${mediaQuery}-${detailIndex}`}>
             <source
-              srcSet={srcSets[mediaQuery]}
+              srcSet={`${srcSets[mediaQuery]}&fm=avif&dpr=1 1x, ${srcSets[mediaQuery]}&fm=avif&dpr=2 2x, ${srcSets[mediaQuery]}&fm=avif&dpr=3 3x`}
               media={mediaQuery}
-              type="image/jpeg" // Adjust the type based on your image format
+              type="image/avif"
+            />
+            <source
+              srcSet={`${srcSets[mediaQuery]}&fm=webp&dpr=1 1x, ${srcSets[mediaQuery]}&fm=webp&dpr=2 2x, ${srcSets[mediaQuery]}&fm=webp&dpr=3 3x`}
+              media={mediaQuery}
+              type="image/webp"
             />
           </React.Fragment>
         )),
       )}
       <img
-        src={srcSets[Object.keys(src)[0]]} // Fallback to the first URL
+        src={`${srcSets[Object.keys(src)[0]]}&fm-webp`} // Fallback to the first URL
         alt={alt}
         width={Object.values(src)[0][0].width}
         height={Object.values(src)[0][0].height}
