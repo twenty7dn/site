@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImgixClient from "@imgix/js-core";
 
 interface ImageDetail {
@@ -42,32 +42,35 @@ const WpImage: React.FC<WpImageProps> = ({
     };
   }
 
-  // Fetch signed URLs during initialization
-  useState(async () => {
-    const allPromises = Object.entries(src).flatMap(([mediaQuery, details]) =>
-      details.map(async (detail) => {
-        const path = url.replace(
-          `${process.env.WORDPRESS_HOST}/wp-content/uploads/`,
-          "/",
-        );
-        const signedUrl = client.buildURL(path, {
-          w: detail.width.toString(),
-          h: detail.height.toString(),
-          "fp-x": (focalPoint[0] / 100).toString(),
-          "fp-y": (focalPoint[1] / 100).toString(),
-        });
+  useEffect(() => {
+    const fetchSignedUrls = async () => {
+      const allPromises = Object.entries(src).flatMap(([mediaQuery, details]) =>
+        details.map(async (detail) => {
+          const path = url.replace(
+            `${process.env.WORDPRESS_HOST}/wp-content/uploads/`,
+            "/",
+          );
+          const signedUrl = client.buildURL(path, {
+            w: detail.width.toString(),
+            h: detail.height.toString(),
+            "fp-x": (focalPoint[0] / 100).toString(),
+            "fp-y": (focalPoint[1] / 100).toString(),
+          });
 
-        return { [mediaQuery]: signedUrl };
-      }),
-    );
+          return { [mediaQuery]: signedUrl };
+        }),
+      );
 
-    const results = await Promise.all(allPromises);
-    const fetchedSrcSets = results.reduce(
-      (acc, result) => ({ ...acc, ...result }),
-      {},
-    );
-    setSrcSets(fetchedSrcSets);
-  }, []); // Empty dependency array for initialization
+      const results = await Promise.all(allPromises);
+      const fetchedSrcSets = results.reduce(
+        (acc, result) => ({ ...acc, ...result }),
+        {},
+      );
+      setSrcSets(fetchedSrcSets);
+    };
+
+    fetchSignedUrls();
+  }, [url, focalPoint, src]); // Dependency array to re-fetch if props change
 
   return (
     <picture>
