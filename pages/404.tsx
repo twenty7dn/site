@@ -41,7 +41,7 @@ function Writer({
         className={`fixed inset-0 -z-10 h-screen w-screen object-cover opacity-75`}
       />
       <main
-        className={`mx-auto flex max-w-[1920px] flex-col font-serif lg:flex-row`}
+        className={`uhd:mx-auto mx-auto flex max-w-[1920px] flex-col font-serif lg:flex-row`}
       >
         <Header menu={menu} options={options} latestPosts={latestPosts} />
         <section

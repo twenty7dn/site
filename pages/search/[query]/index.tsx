@@ -1,3 +1,4 @@
+import Head from "next/head";
 import parse from "html-react-parser";
 import React from "react";
 
@@ -43,7 +44,7 @@ function Search({
 
   return (
     <>
-      <head>{parse(head.head + options.site_favicon)}</head>
+      <Head>{parse(head.head + options.site_favicon)}</Head>
       <WpImage
         alt={options.name}
         url={options.site_background_url}
@@ -64,7 +65,9 @@ function Search({
         focalPoint={[50, 50]}
         className={`fixed inset-0 -z-10 h-screen w-screen object-cover opacity-75`}
       />
-      <main className={`flex max-w-[1920px] flex-col font-serif lg:flex-row`}>
+      <main
+        className={`uhd:mx-auto flex max-w-[1920px] flex-col font-serif lg:flex-row`}
+      >
         <Header menu={menu} options={options} latestPosts={latestPosts} />
         <PostList
           allPosts={transformedData}

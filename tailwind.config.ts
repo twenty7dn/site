@@ -16,6 +16,7 @@ const config: Config = {
       screens: {
         "1.5xl": "1152px",
         tab: "1400px",
+        uhd: "2560px",
       },
       typography: (theme: any) => ({
         DEFAULT: {
