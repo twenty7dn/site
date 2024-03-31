@@ -2,22 +2,16 @@ import Head from "next/head";
 import parse from "html-react-parser";
 import React from "react";
 
-import Header from "@/components/header";
 import PostList from "@/components/postList";
-import WpImage from "@/components/WpImage";
 
 function Home({
-  menu,
   options,
-  latestPosts,
   allPosts,
   pageNumber,
   totalPages,
   head,
 }: {
-  menu: any;
   options: any;
-  latestPosts: any;
   allPosts: any;
   pageNumber: any;
   totalPages: number;
@@ -26,38 +20,13 @@ function Home({
   return (
     <>
       <Head>{parse(head.head + options.site_favicon)}</Head>
-      <WpImage
-        alt={options.name}
-        url={options.site_background_url}
-        src={{
-          "(max-width: 960px)": [
-            {
-              width: 1080,
-              height: 1920,
-            },
-          ],
-          "(min-width: 961px)": [
-            {
-              width: 1920,
-              height: 1080,
-            },
-          ],
-        }}
-        focalPoint={[50, 50]}
-        className={`fixed inset-0 -z-10 h-screen w-screen object-cover opacity-75`}
+      <PostList
+        allPosts={allPosts}
+        header={false}
+        options={options}
+        pageNumber={pageNumber}
+        totalPages={totalPages}
       />
-      <main
-        className={`uhd:mx-auto flex max-w-[1920px] flex-col font-serif lg:flex-row`}
-      >
-        <Header menu={menu} options={options} latestPosts={latestPosts} />
-        <PostList
-          allPosts={allPosts}
-          header={false}
-          options={options}
-          pageNumber={pageNumber}
-          totalPages={totalPages}
-        />
-      </main>
     </>
   );
 }
@@ -91,20 +60,9 @@ const fetchPosts = async (url: string) => {
 export async function getStaticProps({ params }: any) {
   const pageNumber = parseInt(params.page, 10);
 
-  const resMenuIDs = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/menu/`,
-  );
-  const menus = await resMenuIDs.json();
-
   // Fetch Stuff
-  const [menu, options, latestPosts, allPostsData] = await Promise.all([
-    fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/menu/${menus?.primary}`,
-    ).then((res) => res.json()),
+  const [options, allPostsData] = await Promise.all([
     fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
-    fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=5`).then(
-      (res) => res.json(),
-    ),
     fetchPosts(
       `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}`,
     ),
@@ -119,9 +77,7 @@ export async function getStaticProps({ params }: any) {
 
   return {
     props: {
-      menu,
       options,
-      latestPosts,
       allPosts,
       pageNumber,
       totalPages,

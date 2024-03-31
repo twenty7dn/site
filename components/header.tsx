@@ -26,7 +26,7 @@ function Header({
   };
 
   useEffect(() => {
-    const content = document.getElementById("content");
+    const content = document.getElementById("#content");
     if (content) {
       if (headerState) {
         content.classList.add("h-0");
@@ -41,6 +41,26 @@ function Header({
       }
     }
   }, [headerState]);
+
+  useEffect(() => {
+    const handleClick = () => {
+      // Call closeHeader function
+      closeHeader();
+    };
+
+    // Add event listener to all anchor elements
+    const anchors = document.querySelectorAll("a");
+    anchors.forEach((anchor) => {
+      anchor.addEventListener("click", handleClick);
+    });
+
+    // Clean up the event listeners on component unmount
+    return () => {
+      anchors.forEach((anchor) => {
+        anchor.removeEventListener("click", handleClick);
+      });
+    };
+  }, [router.asPath]);
 
   const handleSearch = () => {
     // Replace spaces with '+' in the search query

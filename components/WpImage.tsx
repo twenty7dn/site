@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ImgixClient from "@imgix/js-core";
 
 interface ImageDetail {
@@ -32,8 +32,6 @@ const WpImage: React.FC<WpImageProps> = ({
     includeLibraryParam: false,
   });
 
-  const [srcSets, setSrcSets] = useState<Record<string, string>>({});
-
   let sizeArr;
   if (size) {
     sizeArr = {
@@ -42,35 +40,30 @@ const WpImage: React.FC<WpImageProps> = ({
     };
   }
 
-  useEffect(() => {
-    const fetchSignedUrls = async () => {
-      const allPromises = Object.entries(src).flatMap(([mediaQuery, details]) =>
-        details.map(async (detail) => {
-          const path = url.replace(
-            `${process.env.WORDPRESS_HOST}/wp-content/uploads/`,
-            "/",
-          );
-          const signedUrl = client.buildURL(path, {
-            w: detail.width.toString(),
-            h: detail.height.toString(),
-            "fp-x": (focalPoint[0] / 100).toString(),
-            "fp-y": (focalPoint[1] / 100).toString(),
-          });
+  const srcSets: Record<string, string> = fetchSignedUrls();
 
-          return { [mediaQuery]: signedUrl };
-        }),
-      );
+  function fetchSignedUrls(): Record<string, string> {
+    const newSrcSets: Record<string, string> = {};
 
-      const results = await Promise.all(allPromises);
-      const fetchedSrcSets = results.reduce(
-        (acc, result) => ({ ...acc, ...result }),
-        {},
-      );
-      setSrcSets(fetchedSrcSets);
-    };
+    Object.entries(src).forEach(([mediaQuery, details]) =>
+      details.forEach(async (detail) => {
+        const path = url.replace(
+          `${process.env.WORDPRESS_HOST}/wp-content/uploads/`,
+          "/",
+        );
+        const signedUrl = client.buildURL(path, {
+          w: detail.width.toString(),
+          h: detail.height.toString(),
+          "fp-x": (focalPoint[0] / 100).toString(),
+          "fp-y": (focalPoint[1] / 100).toString(),
+        });
 
-    fetchSignedUrls();
-  }, [url, focalPoint, src]); // Dependency array to re-fetch if props change
+        newSrcSets[mediaQuery] = signedUrl;
+      }),
+    );
+
+    return newSrcSets;
+  }
 
   return (
     <picture>

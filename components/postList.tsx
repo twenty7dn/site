@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 import Post from "@/components/post";
 import PostNoBanner from "@/components/postNoBanner";
@@ -89,12 +90,12 @@ function PostList({
             <>
               {/* Newer Entries button */}
               {currentPage > 1 && (
-                <a
+                <Link
                   href={prevPageUrl}
                   className={`inline-link inline-block !p-0 uppercase`}
                 >
                   Newer Entries
-                </a>
+                </Link>
               )}
               {currentPage > 1 && currentPage < totalPages && (
                 <span
@@ -105,12 +106,12 @@ function PostList({
               )}
               {/* Older Entries button */}
               {currentPage < totalPages && (
-                <a
+                <Link
                   href={nextPageUrl}
                   className={`inline-link inline-block !p-0 uppercase`}
                 >
                   Older Entries
-                </a>
+                </Link>
               )}
             </>
           )

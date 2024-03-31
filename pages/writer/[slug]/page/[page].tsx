@@ -2,23 +2,17 @@ import Head from "next/head";
 import parse from "html-react-parser";
 import React from "react";
 
-import Header from "@/components/header";
 import PostList from "@/components/postList";
-import WpImage from "@/components/WpImage";
 
 function Writer({
-  menu,
   options,
-  latestPosts,
   allPosts,
   writer,
   pageNumber,
   totalPages,
   head,
 }: {
-  menu: any;
   options: any;
-  latestPosts: any;
   allPosts: any;
   writer: any;
   pageNumber: number;
@@ -28,45 +22,20 @@ function Writer({
   return (
     <>
       <Head>{parse(head.head + options.site_favicon)}</Head>
-      <WpImage
-        alt={options.name}
-        url={options.site_background_url}
-        src={{
-          "(max-width: 960px)": [
-            {
-              width: 1080,
-              height: 1920,
-            },
-          ],
-          "(min-width: 961px)": [
-            {
-              width: 1920,
-              height: 1080,
-            },
-          ],
-        }}
-        focalPoint={[50, 50]}
-        className={`fixed inset-0 -z-10 h-screen w-screen object-cover opacity-75`}
+      <PostList
+        allPosts={allPosts}
+        header={
+          <div
+            className={`text-md relative z-10 border-b border-b-black/10 bg-amber-50 px-8 py-6 font-sans uppercase tracking-widest`}
+          >
+            <strong className={`font-bold`}>Writer:</strong>&nbsp;
+            {writer[0].name}
+          </div>
+        }
+        pageNumber={pageNumber}
+        totalPages={totalPages}
+        options={options}
       />
-      <main
-        className={`uhd:mx-auto flex max-w-[1920px] flex-col font-serif lg:flex-row`}
-      >
-        <Header menu={menu} options={options} latestPosts={latestPosts} />
-        <PostList
-          allPosts={allPosts}
-          header={
-            <div
-              className={`text-md relative z-10 border-b border-b-black/10 bg-amber-50 px-8 py-6 font-sans uppercase tracking-widest`}
-            >
-              <strong className={`font-bold`}>Writer:</strong>&nbsp;
-              {writer[0].name}
-            </div>
-          }
-          pageNumber={pageNumber}
-          totalPages={totalPages}
-          options={options}
-        />
-      </main>
     </>
   );
 }
@@ -116,20 +85,9 @@ export async function getStaticProps({ params }: any) {
   const { page } = params;
   const pageNumber = parseInt(page, 10);
 
-  const resMenuIDs = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/menu/`,
-  );
-  const menus = await resMenuIDs.json();
-
   // Fetch Stuff
-  const [menu, options, latestPosts, allPostsData, writer] = await Promise.all([
-    fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/menu/${menus?.primary}`,
-    ).then((res) => res.json()),
+  const [options, allPostsData, writer] = await Promise.all([
     fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
-    fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=5`).then(
-      (res) => res.json(),
-    ),
     fetchPosts(
       `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}&filter[author_name]=${params.slug}`,
     ),
@@ -147,9 +105,7 @@ export async function getStaticProps({ params }: any) {
 
   return {
     props: {
-      menu,
       options,
-      latestPosts,
       allPosts,
       writer,
       pageNumber,
