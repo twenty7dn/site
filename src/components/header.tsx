@@ -31,11 +31,13 @@ function Header({
       if (headerState) {
         content.classList.add("h-0");
         content.classList.add("lg:h-max");
+        content.classList.add("lg:min-h-screen");
         content.classList.add("overflow-hidden");
         content.classList.add("lg:overflow-auto");
       } else {
         content.classList.remove("h-0");
         content.classList.remove("lg:h-max");
+        content.classList.remove("lg:min-h-screen");
         content.classList.remove("overflow-hidden");
         content.classList.remove("lg:overflow-auto");
       }
