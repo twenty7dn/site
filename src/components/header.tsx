@@ -26,7 +26,7 @@ function Header({
   };
 
   useEffect(() => {
-    const content = document.getElementById("#content");
+    const content = document.getElementById("content");
     if (content) {
       if (headerState) {
         content.classList.add("h-0");
