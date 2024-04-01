@@ -1,39 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DOMPurify from "isomorphic-dompurify";
 import parse from "html-react-parser";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import WpImage from "@/components/WpImage";
-import Link from "next/link";
-
-function replaceAnchorTagsWithLink(htmlContent: any) {
-  const modifiedContent = parse(htmlContent, {
-    replace: (domNode: any) => {
-      if (domNode.name === "a") {
-        const href = domNode.attribs.href;
-        if (href.startsWith("/") || href.startsWith("#")) {
-          // Convert to Next.js Link
-          return (
-            <Link href={href} key={domNode.attribs.key}>
-              {domNode.children}
-            </Link>
-          );
-        }
-      }
-    },
-  });
-
-  return modifiedContent;
-}
+import { useRouter } from "next/router";
 
 function Blocks({ data }: { data: any }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
+  const router = useRouter();
 
   const handleImageClick = (imageUrl: string) => {
     setCurrentImage(imageUrl);
     setLightboxOpen(true);
   };
+
+  useEffect(() => {
+    const handleAnchorClick = (event: MouseEvent) => {
+      event.preventDefault(); // Prevent the default behavior of anchor tags
+      const href = (event.target as HTMLAnchorElement).getAttribute("href");
+      if (href && !href.startsWith("#")) {
+        // Check if the href is not an anchor link
+        router.push(href); // Navigate to the href using Next.js router
+      }
+    };
+
+    // Add event listener to all anchor tags when component mounts
+    document
+      .querySelector(".prose")
+      ?.querySelectorAll("a")
+      .forEach((anchor) => {
+        anchor.addEventListener("click", handleAnchorClick);
+      });
+
+    // Clean up event listeners when component unmounts
+    return () => {
+      document
+        .querySelector(".prose")
+        ?.querySelectorAll("a")
+        .forEach((anchor) => {
+          anchor.removeEventListener("click", handleAnchorClick);
+        });
+    };
+  }, [router]);
 
   return (
     <>
@@ -77,19 +87,19 @@ function Blocks({ data }: { data: any }) {
             if (block.attrs.align === "left") {
               blockCaption = block.caption
                 ? parse(
-                    `<figcaption className="text-black/50 text-sm mt-2">${replaceAnchorTagsWithLink(block.caption)}</figcaption>`,
+                    `<figcaption className="text-black/50 text-sm mt-2">${block.caption}</figcaption>`,
                   )
                 : "";
             } else if (block.attrs.align === "right") {
               blockCaption = block.caption
                 ? parse(
-                    `<figcaption className="text-black/50 text-sm mt-2 text-right">${replaceAnchorTagsWithLink(block.caption)}</figcaption>`,
+                    `<figcaption className="text-black/50 text-sm mt-2 text-right">${block.caption}</figcaption>`,
                   )
                 : "";
             } else {
               blockCaption = block.caption
                 ? parse(
-                    `<figcaption className="text-black/50 text-sm mt-2 text-center">${replaceAnchorTagsWithLink(block.caption)}</figcaption>`,
+                    `<figcaption className="text-black/50 text-sm mt-2 text-center">${block.caption}</figcaption>`,
                   )
                 : "";
             }
@@ -264,14 +274,9 @@ function Blocks({ data }: { data: any }) {
               </>
             );
           } else if (block.blockName === "core/quote") {
-            const contentEnd = replaceAnchorTagsWithLink(
-              parse(
-                DOMPurify.sanitize(
-                  block.innerContent
-                    .slice(-1)
-                    .pop()
-                    .replace("</blockquote>", ""),
-                ),
+            const contentEnd = parse(
+              DOMPurify.sanitize(
+                block.innerContent.slice(-1).pop().replace("</blockquote>", ""),
               ),
             );
             return (
@@ -288,13 +293,11 @@ function Blocks({ data }: { data: any }) {
                       key={innerBlockKey}
                       data-innerblock-id={innerBlockKey}
                     >
-                      {replaceAnchorTagsWithLink(
-                        parse(
-                          DOMPurify.sanitize(
-                            innerBlock.innerHTML.replace(
-                              /(<p[^>]+?>|<p>|<\/p>)/gim,
-                              "",
-                            ),
+                      {parse(
+                        DOMPurify.sanitize(
+                          innerBlock.innerHTML.replace(
+                            /(<p[^>]+?>|<p>|<\/p>)/gim,
+                            "",
                           ),
                         ),
                       )}
@@ -337,13 +340,11 @@ function Blocks({ data }: { data: any }) {
                       key={innerBlockKey}
                       data-innerblock-id={innerBlockKey}
                     >
-                      {replaceAnchorTagsWithLink(
-                        parse(
-                          DOMPurify.sanitize(
-                            innerBlock.innerHTML.replace(
-                              /(<p[^>]+?>|<p>|<\/p>)/gim,
-                              "",
-                            ),
+                      {parse(
+                        DOMPurify.sanitize(
+                          innerBlock.innerHTML.replace(
+                            /(<p[^>]+?>|<p>|<\/p>)/gim,
+                            "",
                           ),
                         ),
                       )}
@@ -380,9 +381,7 @@ function Blocks({ data }: { data: any }) {
                   if (innerBlock.blockName === "core/heading") {
                     return (
                       <div key={innerBlockKey} className={`font-sans`}>
-                        {replaceAnchorTagsWithLink(
-                          parse(DOMPurify.sanitize(innerBlock.innerHTML)),
-                        )}
+                        {parse(DOMPurify.sanitize(innerBlock.innerHTML))}
                       </div>
                     );
                   }
@@ -393,13 +392,11 @@ function Blocks({ data }: { data: any }) {
                         key={innerBlockKey}
                         data-innerblock-id={innerBlockKey}
                       >
-                        {replaceAnchorTagsWithLink(
-                          parse(
-                            DOMPurify.sanitize(
-                              innerBlock.innerHTML
-                                .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, "")
-                                .replace(process.env.WORDPRESS_HOST, ""),
-                            ),
+                        {parse(
+                          DOMPurify.sanitize(
+                            innerBlock.innerHTML
+                              .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, "")
+                              .replace(process.env.WORDPRESS_HOST, ""),
                           ),
                         )}
                       </p>
@@ -441,13 +438,11 @@ function Blocks({ data }: { data: any }) {
           } else if (block.blockName === "core/paragraph") {
             return (
               <p id={`block-${block.uuid}`} key={block.uuid}>
-                {replaceAnchorTagsWithLink(
-                  parse(
-                    DOMPurify.sanitize(
-                      block.innerHTML
-                        .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, "")
-                        .replace(process.env.WORDPRESS_HOST, ""),
-                    ),
+                {parse(
+                  DOMPurify.sanitize(
+                    block.innerHTML
+                      .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, "")
+                      .replace(process.env.WORDPRESS_HOST, ""),
                   ),
                 )}
               </p>
@@ -459,19 +454,11 @@ function Blocks({ data }: { data: any }) {
                 key={block.uuid}
                 className={"font-sans"}
               >
-                {replaceAnchorTagsWithLink(
-                  parse(DOMPurify.sanitize(block.innerHTML)),
-                )}
+                {parse(DOMPurify.sanitize(block.innerHTML))}
               </div>
             );
           } else if (block.blockName === "acf/bookmark") {
-            return (
-              <>
-                {replaceAnchorTagsWithLink(
-                  parse(DOMPurify.sanitize(block.innerHTML)),
-                )}
-              </>
-            );
+            return <>{parse(DOMPurify.sanitize(block.innerHTML))}</>;
           } else {
             if (block.blockName === null || block.blockName === "core/more")
               return;
@@ -481,9 +468,7 @@ function Blocks({ data }: { data: any }) {
                 key={block.uuid}
                 className="text-left"
               >
-                {replaceAnchorTagsWithLink(
-                  parse(DOMPurify.sanitize(block.innerHTML)),
-                )}
+                {parse(DOMPurify.sanitize(block.innerHTML))}
               </div>
             );
           }
