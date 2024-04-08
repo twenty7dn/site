@@ -144,7 +144,7 @@ function SinglePost({
                   className={`sidebar ml-[48px] flex flex-col gap-12 px-6 py-8 2xl:ml-0 2xl:w-1/3 2xl:px-10`}
                 >
                   <div
-                    className={`author-card inline-block xl:ml-auto xl:w-4/5 ${toc ? "2xl:-mb-8" : "xl:sticky 2xl:before:block"} before:hidden`}
+                    className={`author-card inline-block 2xl:ml-auto 2xl:w-4/5 ${toc ? "2xl:-mb-8" : "2xl:sticky 2xl:before:block"} before:hidden`}
                   >
                     <div>
                       <WpImage
@@ -261,7 +261,7 @@ function SinglePost({
                   </div>
                   {toc && (
                     <div
-                      className={`toc-card mt-8 hidden bg-amber-50 before:hidden xl:sticky xl:ml-auto xl:w-4/5 2xl:inline-block 2xl:before:block`}
+                      className={`toc-card mt-8 hidden bg-amber-50 before:hidden 2xl:sticky 2xl:ml-auto 2xl:inline-block 2xl:w-4/5 2xl:before:block`}
                     >
                       <h2
                         className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
@@ -271,7 +271,7 @@ function SinglePost({
                       {toc}
                     </div>
                   )}
-                  <div className={`inline-block xl:ml-auto xl:w-4/5`}>
+                  <div className={`inline-block 2xl:ml-auto 2xl:w-4/5`}>
                     <h2
                       className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
                     >
@@ -292,7 +292,7 @@ function SinglePost({
                     </div>
                   </div>
                   {post.terms.tags.length > 0 && (
-                    <div className={`inline-block xl:ml-auto xl:w-4/5`}>
+                    <div className={`inline-block 2xl:ml-auto 2xl:w-4/5`}>
                       <h2
                         className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
                       >
@@ -313,7 +313,7 @@ function SinglePost({
                       </div>
                     </div>
                   )}
-                  <div className={`inline-block xl:ml-auto xl:w-4/5`}>
+                  <div className={`inline-block 2xl:ml-auto 2xl:w-4/5`}>
                     <h2
                       className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
                     >
@@ -355,7 +355,7 @@ function SinglePost({
                   className={`sidebar ml-[48px] flex flex-col gap-12 px-6 py-8 2xl:ml-0 2xl:w-1/3 2xl:px-10`}
                 >
                   <div
-                    className={`author-card inline-block xl:ml-auto xl:w-4/5 ${toc ? "2xl:-mb-8" : "xl:sticky 2xl:before:block"} before:hidden`}
+                    className={`author-card inline-block 2xl:ml-auto 2xl:w-4/5 ${toc ? "2xl:-mb-8" : "2xl:sticky 2xl:before:block"} before:hidden`}
                   >
                     <div>
                       <WpImage
@@ -469,7 +469,7 @@ function SinglePost({
                   </div>
                   {toc && (
                     <div
-                      className={`toc-card mt-8 hidden bg-amber-50 before:hidden xl:sticky xl:ml-auto xl:w-4/5 2xl:inline-block 2xl:before:block`}
+                      className={`toc-card mt-8 hidden bg-amber-50 before:hidden 2xl:sticky 2xl:ml-auto 2xl:inline-block 2xl:w-4/5 2xl:before:block`}
                     >
                       <h2
                         className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
@@ -479,7 +479,7 @@ function SinglePost({
                       {toc}
                     </div>
                   )}
-                  <div className={`inline-block xl:ml-auto xl:w-4/5`}>
+                  <div className={`inline-block 2xl:ml-auto 2xl:w-4/5`}>
                     <h2
                       className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
                     >
@@ -500,7 +500,7 @@ function SinglePost({
                     </div>
                   </div>
                   {post.terms.tags.length > 0 && (
-                    <div className={`inline-block xl:ml-auto xl:w-4/5`}>
+                    <div className={`inline-block 2xl:ml-auto 2xl:w-4/5`}>
                       <h2
                         className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
                       >
@@ -521,7 +521,7 @@ function SinglePost({
                       </div>
                     </div>
                   )}
-                  <div className={`inline-block xl:ml-auto xl:w-4/5`}>
+                  <div className={`inline-block 2xl:ml-auto 2xl:w-4/5`}>
                     <h2
                       className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
                     >
