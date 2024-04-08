@@ -141,7 +141,7 @@ function SinglePost({
                   <Blocks data={post.blocks} />
                 </div>
                 <aside
-                  className={`sidebar ml-[48px] flex flex-col gap-12 px-6 py-8 2xl:ml-0 2xl:w-1/3 2xl:px-10`}
+                  className={`sidebar ml-[72px] flex flex-col gap-12 px-6 py-8 2xl:ml-0 2xl:w-1/3 2xl:px-10`}
                 >
                   <div
                     className={`author-card inline-block 2xl:ml-auto 2xl:w-4/5 ${toc ? "2xl:-mb-8" : "2xl:sticky 2xl:before:block"} before:hidden`}
@@ -352,7 +352,7 @@ function SinglePost({
                   <Blocks data={post.blocks} />
                 </div>
                 <aside
-                  className={`sidebar ml-[48px] flex flex-col gap-12 px-6 py-8 2xl:ml-0 2xl:w-1/3 2xl:px-10`}
+                  className={`sidebar ml-[72px] flex flex-col gap-12 px-6 py-8 2xl:ml-0 2xl:w-1/3 2xl:px-10`}
                 >
                   <div
                     className={`author-card inline-block 2xl:ml-auto 2xl:w-4/5 ${toc ? "2xl:-mb-8" : "2xl:sticky 2xl:before:block"} before:hidden`}
