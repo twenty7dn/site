@@ -12,7 +12,7 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
     ),
   ]);
 
-  res.setHeader("Content-Type", "text/xml");
+  res.setHeader("Content-Type", "application/rss+xml");
 
   const feed = new Feed({
     title: `${options?.name} › Atom Feed`,
