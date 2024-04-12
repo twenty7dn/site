@@ -39,8 +39,8 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
   blog.map((post: any) => {
     feed.addItem({
       title: post?.title.rendered,
-      id: `${process.env.FRONTEND_HOST}/blog/${post?.slug}`,
-      link: `${process.env.FRONTEND_HOST}/blog/${post?.slug}`,
+      id: `${process.env.FRONTEND_HOST}/${post?.slug}`,
+      link: `${process.env.FRONTEND_HOST}/${post?.slug}`,
       description: post?.excerpt.rendered,
       content: post?.content.rendered,
       author: [
