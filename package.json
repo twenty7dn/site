@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.6",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
+    "feed": "^4.2.2",
     "html-react-parser": "^5.0.6",
     "isomorphic-dompurify": "^1.9.0",
     "isomorphic-unfetch": "^4.0.2",
