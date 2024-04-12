@@ -49,7 +49,7 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
           link: post?._embedded?.author[0]?.link,
         },
       ],
-      date: new Date(post?.date_gmt),
+      date: new Date(post?.modified_gmt),
       image: post?.featured_media?.src,
     });
 
