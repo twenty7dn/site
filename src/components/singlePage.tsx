@@ -149,7 +149,7 @@ function SinglePage({
                         <li key={post.id}>
                           <Link
                             href={`/${post.slug}`}
-                            className={`inline-block border-b border-b-transparent font-sans text-sm transition-colors hover:border-b-bright-sun-500`}
+                            className={`inline border-b border-b-transparent font-sans text-sm transition-colors hover:border-b-bright-sun-500`}
                             dangerouslySetInnerHTML={{
                               __html: post.title.rendered,
                             }}
