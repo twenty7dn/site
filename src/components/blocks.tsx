@@ -469,7 +469,11 @@ function Blocks({ data }: { data: any }) {
               </div>
             );
           } else if (block.blockName === "acf/bookmark") {
-            return <>{parse(DOMPurify.sanitize(block.innerHTML))}</>;
+            return <>{parse(DOMPurify.sanitize(
+                block.innerHTML
+                  .replace(domainRegex, '<a$1 href="$2" target="_blank"'),
+                { ADD_ATTR: ['target', 'rel'] }
+            ))}</>;
           } else {
             if (block.blockName === null || block.blockName === "core/more")
               return;
