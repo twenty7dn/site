@@ -13,6 +13,7 @@
     "@imgix/js-core": "^3.8.0",
     "@tailwindcss/typography": "^0.5.10",
     "@tippyjs/react": "^4.2.6",
+    "@types/dompurify": "^3.0.5",
     "@types/react-imgix": "^9.5.3",
     "axios": "^1.6.5",
     "cheerio": "^1.0.0-rc.12",

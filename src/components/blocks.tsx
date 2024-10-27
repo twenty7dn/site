@@ -18,9 +18,9 @@ function Blocks({ data }: { data: any }) {
 
   useEffect(() => {
     const handleAnchorClick = (event: MouseEvent) => {
-      event.preventDefault(); // Prevent the default behavior of anchor tags
       const href = (event.target as HTMLAnchorElement).getAttribute("href");
-      if (href && !href.startsWith("#")) {
+      if (href && !href.startsWith("#") && (event.target as HTMLAnchorElement).getAttribute("target") !== "_blank" ) {
+        event.preventDefault(); // Prevent the default behavior of anchor tags
         // Check if the href is not an anchor link
         router.push(href); // Navigate to the href using Next.js router
       }
@@ -44,6 +44,15 @@ function Blocks({ data }: { data: any }) {
         });
     };
   }, [router]);
+
+  let DOMAIN = process.env.FRONTEND_HOST;
+  DOMAIN = new URL(DOMAIN as string).hostname;
+
+  // Escaping the domain for regex use
+  const escapedDomain = DOMAIN.replace(/\./g, '\\.');
+
+  // Create the regex with the escaped domain
+  const domainRegex = new RegExp(`<a\\b([^>]*?)\\s+href="(https?:\\/\\/(?!localhost|127\\.0\\.0\\.1|${escapedDomain})[^"]+)"`, 'gi');
 
   return (
     <>
@@ -442,8 +451,10 @@ function Blocks({ data }: { data: any }) {
                   DOMPurify.sanitize(
                     block.innerHTML
                       .replace(/(<p[^>]+?>|<p>|<\/p>)/gim, "")
+                      .replace(domainRegex, '<a$1 href="$2" target="_blank"')
                       .replace(process.env.WORDPRESS_HOST, ""),
-                  ),
+                    { ADD_ATTR: ['target', 'rel'] }
+                  )
                 )}
               </p>
             );
