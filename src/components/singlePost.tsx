@@ -84,6 +84,7 @@ function SinglePost({
     new SmoothScroll('a[href*="#"], #totop', {
       speed: 500,
       speedAsDuration: true,
+      updateURL: false,
       offset: (anchor: any, toggle: any) => {
         // Apply offset only for anchor tags that are not #totop
         return toggle.getAttribute("href") !== "#" ? 16 : 0;
