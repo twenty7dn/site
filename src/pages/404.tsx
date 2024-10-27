@@ -6,7 +6,10 @@ import Footer from "@/components/footer";
 
 function Error({ options, head }: { options: any; head: any }) {
   return (
-    <>
+    <section
+        id={`content`}
+        className={`post-list bar-left/50 relative flex w-full flex-col bg-amber-50 before:w-[48px] xl:before:w-[64px]`}
+    >
       <Head>{parse(head.head + options.site_favicon)}</Head>
       <hr
         className={`ml-[48px] border-b-2 border-t-0 border-b-black/10 xl:ml-[64px]`}
@@ -38,8 +41,34 @@ function Error({ options, head }: { options: any; head: any }) {
           className={`ml-[48px] mt-8 border-b-2 border-t-0 border-b-black/10 xl:ml-[64px]`}
         />
       </header>
-      <Footer loadMore={``} options={options} />
-    </>
+      <div className={`prose mt-6 ml-[72px] mr-6 text-lg xl:ml-[96px] xl:w-1/2`}>
+        <blockquote className={`quote prose-quoteless`}>
+          <p>
+            In computer network communications, the HTTP 404, 404 not found, 404, 404 error, page not found, or file not
+            found error message is a hypertext transfer protocol (HTTP) standard response code, to indicate that the
+            browser was able to communicate with a given server, but the server could not find what was requested. The
+            error may also be used when a server does not wish to disclose whether it has the requested information.
+          </p>
+          <p>
+            The website hosting server will typically generate a &quot;404 Not Found&quot; web page when a user attempts
+            to follow a broken or dead link; hence the 404 error is one of the most recognizable errors encountered on
+            the
+            World Wide Web.
+          </p>
+          <cite>
+            <a href="https://www.wikiwand.com/en/articles/HTTP_404" target={`_blank`}>
+              ~ Wikipedia
+            </a>
+          </cite>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               className="absolute left-[-10px] top-[10px] bg-amber-50 fill-stone-950 lg:left-[-10px]" width="1em"
+               height="1em">
+            <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z"></path>
+          </svg>
+        </blockquote>
+      </div>
+      <Footer loadMore={``} options={options}/>
+    </section>
   );
 }
 
@@ -50,7 +79,7 @@ export async function getStaticProps() {
   ]);
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/404/`)}`,
+      `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/404/`)}`,
   ).then((res) => res.json());
 
   return {
