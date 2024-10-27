@@ -41,7 +41,7 @@ function Error({ options, head }: { options: any; head: any }) {
           className={`ml-[48px] mt-8 border-b-2 border-t-0 border-b-black/10 xl:ml-[64px]`}
         />
       </header>
-      <div className={`prose mt-6 ml-[72px] mr-6 text-lg xl:ml-[96px] xl:w-1/2`}>
+      <div className={`prose mt-1.5 mb-6 ml-[72px] mr-6 text-lg xl:ml-[96px] xl:w-1/2`}>
         <blockquote className={`quote prose-quoteless`}>
           <p>
             In computer network communications, the HTTP 404, 404 not found, 404, 404 error, page not found, or file not

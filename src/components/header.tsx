@@ -68,6 +68,7 @@ function Header({
     // Replace spaces with '+' in the search query
     const formattedQuery = searchQuery.split(" ").join("+");
     // Use the router to push the new URL without reloading the [slug]
+    closeHeader();
     router.push(`/search/${formattedQuery}`);
   };
 

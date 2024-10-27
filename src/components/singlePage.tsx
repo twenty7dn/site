@@ -67,12 +67,13 @@ function SinglePage({
               className={`post-content bar-left/50 relative flex w-full flex-grow flex-col before:w-[48px] xl:before:w-[64px] 2xl:flex-row`}
             >
               <div
-                className={`prose prose-lg ml-[72px] mr-6 max-w-full py-8 prose-strong:font-sans xl:ml-[96px] xl:mr-0 xl:w-2/3`}
+                  className={`prose prose-lg ml-[72px] mr-6 max-w-full py-8 prose-strong:font-sans xl:ml-[96px] xl:mr-0 xl:w-2/3`}
               >
-                <Blocks data={post.blocks} />
+                <div id={`intro`}></div>
+                <Blocks data={post.blocks}/>
               </div>
               <aside
-                className={`sidebar ml-[48px] flex flex-col gap-12 px-6 py-8 xl:ml-0 xl:w-1/3 xl:px-10`}
+                  className={`sidebar ml-[48px] flex flex-col gap-12 px-6 py-8 xl:ml-0 xl:w-1/3 xl:px-10`}
               >
                 <div
                   className={`author-card relative inline-block before:hidden xl:sticky xl:ml-auto xl:w-4/5 xl:before:block`}

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import parse from "html-react-parser";
-import React from "react";
+import React, { useEffect } from "react";
 
 import PostList from "@/components/postList";
 
