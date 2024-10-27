@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["secure.davidmc.io", "*.cdninstagram.com"],
+    domains: ["secure.twenty7.tv", "*.cdninstagram.com"],
   },
   experimental: {
     scrollRestoration: true,
@@ -12,6 +12,15 @@ const nextConfig = {
     WORDPRESS_HOST: process.env.WORDPRESS_HOST,
     FRONTEND_HOST: process.env.FRONTEND_HOST,
     IMGIX_HOST: process.env.IMGIX_HOST,
+  },
+  async redirects() {
+    return [
+      {
+        source: '/favicon.ico',
+        destination: 'https://static.twenty7.tv/core/template/twentyseven-theme/assets/icons/favicon.ico',
+        permanent: true,
+      },
+    ]
   },
   async headers() {
     return [
