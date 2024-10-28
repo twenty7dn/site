@@ -20,7 +20,7 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
     id: process.env.FRONTEND_HOST as string,
     link: process.env.FRONTEND_HOST,
     language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-    image: options?.site_logo_url,
+    image: options?.site_logo?.url,
     favicon: `${process.env.WORDPRESS_HOST}/core/template/twentyseven-theme/assets/icons/favicon.ico`,
     copyright: options?.site_footer?.desktop,
     updated: new Date(), // optional, default = today

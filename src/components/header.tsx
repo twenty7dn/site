@@ -236,7 +236,7 @@ function Header({
                   onClick={closeHeader}
                 >
                   <WpImage
-                    url={options.site_logo_url}
+                    url={options.site_logo.url}
                     src={{
                       "": [
                         {
@@ -312,14 +312,14 @@ function Header({
           </div>
         </div>
       </div>
-      {options.site_background_credit && (
+      {options.site_background.credit && (
           <div
               className={`absolute inset-0 top-auto hidden h-10 flex-col justify-center bg-white/10 align-middle backdrop-blur-md backdrop-brightness-50 lg:flex ${headerState ? "translate-y-0" : "translate-y-full"} transition-transform`}
         >
           <span
             className={`inline-block px-2 py-1 text-center text-xs text-white 2xl:text-sm`}
           >
-            Background {options.site_background_credit}
+            Background {options.site_background.credit}
           </span>
         </div>
       )}
