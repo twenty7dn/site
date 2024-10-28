@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({
     <>
       <WpImage
         alt={options.name}
-        url={options.site_background.url}
+        url={options.background.url}
         src={{
           "(max-width: 960px)": [
             {

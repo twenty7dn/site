@@ -18,7 +18,7 @@ export default function PostPage({
 }) {
   return (
     <>
-      <Head>{parse(head.head + options.site_favicon)}</Head>
+      <Head>{parse(head.head + options.favicon_html)}</Head>
       {currentPost[0].type === "post" ? (
         <SinglePost
           post={currentPost}

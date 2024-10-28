@@ -236,7 +236,7 @@ function Header({
                   onClick={closeHeader}
                 >
                   <WpImage
-                    url={options.site_logo.url}
+                    url={options.logo.url}
                     src={{
                       "": [
                         {
@@ -267,7 +267,7 @@ function Header({
                 <hr
                   className={`mx-auto mb-6 mt-0 h-1.5 w-1/2 rounded-sm border-none bg-white/10`}
                 />
-                {options.site_connect && (
+                {options.connect && (
                   <>
                     <p
                       className={`mx-auto mb-4 mt-0 max-w-max text-lg text-white/50`}
@@ -277,7 +277,7 @@ function Header({
                     <ul
                       className={`mx-auto my-0 mb-6 flex max-w-max list-none flex-row gap-1.5 p-0 text-white/50 hover:[&_a]:text-white`}
                     >
-                      {options.site_connect.map(
+                      {options.connect.map(
                         (connection: any, index: number) => (
                           <li key={index}>
                             <Tippy
@@ -312,14 +312,14 @@ function Header({
           </div>
         </div>
       </div>
-      {options.site_background.credit && (
+      {options.background.credit && (
           <div
               className={`absolute inset-0 top-auto hidden h-10 flex-col justify-center bg-white/10 align-middle backdrop-blur-md backdrop-brightness-50 lg:flex ${headerState ? "translate-y-0" : "translate-y-full"} transition-transform`}
         >
           <span
             className={`inline-block px-2 py-1 text-center text-xs text-white 2xl:text-sm`}
           >
-            Background {options.site_background.credit}
+            Background {options.background.credit}
           </span>
         </div>
       )}

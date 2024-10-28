@@ -19,7 +19,7 @@ function Tag({
 }) {
   return (
     <>
-      <Head>{parse(head.head + options.site_favicon)}</Head>
+      <Head>{parse(head.head + options.favicon_html)}</Head>
       <PostList
         allPosts={allPosts}
         header={

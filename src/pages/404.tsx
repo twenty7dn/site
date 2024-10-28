@@ -10,7 +10,7 @@ function Error({ options, head }: { options: any; head: any }) {
         id={`content`}
         className={`post-list bar-left/50 relative flex w-full flex-col bg-amber-50 before:w-[48px] xl:before:w-[64px]`}
     >
-      <Head>{parse(head.head + options.site_favicon)}</Head>
+      <Head>{parse(head.head + options.favicon_html)}</Head>
       <hr
         className={`ml-[48px] border-b-2 border-t-0 border-b-black/10 xl:ml-[64px]`}
       />
