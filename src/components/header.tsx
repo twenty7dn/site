@@ -3,6 +3,12 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
 import WpImage from "@/components/WpImage";
+import Tippy from "@tippyjs/react";
+import { animateFill } from "tippy.js";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/dist/backdrop.css";
+import "tippy.js/animations/shift-away.css";
+import "tippy.js/themes/light.css";
 
 function Header({
   menu,
@@ -274,13 +280,27 @@ function Header({
                       {options.site_connect.map(
                         (connection: any, index: number) => (
                           <li key={index}>
-                            <a
-                              target={connection.link.target}
-                              className={`transition-colors`}
-                              href={connection.link.href}
+                            <Tippy
+                                content={connection.link.title}
+                                delay={[3000, 0]}
+                                sticky={true}
+                                hideOnClick={true}
+                                placement={"bottom"}
+                                offset={[0, 0]}
+                                arrow={false}
+                                theme={"light"}
+                                className={"scale-90"}
+                                animateFill={true}
+                                plugins={[animateFill]}
                             >
-                              {parse(connection.icon)}
-                            </a>
+                              <a
+                                  target={connection.link.target}
+                                  className={`transition-colors`}
+                                  href={connection.link.href}
+                              >
+                                {parse(connection.icon)}
+                              </a>
+                            </Tippy>
                           </li>
                         ),
                       )}
@@ -293,8 +313,8 @@ function Header({
         </div>
       </div>
       {options.site_background_credit && (
-        <div
-          className={`absolute inset-0 top-auto hidden h-10 flex-col justify-center bg-white/10 align-middle backdrop-blur-md backdrop-brightness-50 lg:flex ${headerState ? "translate-y-0" : "translate-y-full"} transition-transform`}
+          <div
+              className={`absolute inset-0 top-auto hidden h-10 flex-col justify-center bg-white/10 align-middle backdrop-blur-md backdrop-brightness-50 lg:flex ${headerState ? "translate-y-0" : "translate-y-full"} transition-transform`}
         >
           <span
             className={`inline-block px-2 py-1 text-center text-xs text-white 2xl:text-sm`}

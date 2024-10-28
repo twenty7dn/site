@@ -426,6 +426,7 @@ function SinglePost({
                                       showOnCreate={true}
                                       plugins={[sticky]}
                                       visible={tooltipVisible}
+                                      animateFill={true}
                                   >
                                     <a
                                         onClick={() =>
