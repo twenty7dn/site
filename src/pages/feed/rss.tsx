@@ -15,7 +15,7 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
   res.setHeader("Content-Type", "application/rss+xml");
 
   const feed = new Feed({
-    title: `${options?.name} › Atom Feed`,
+    title: `${options?.name} › RSS Feed`,
     description: options?.description,
     id: process.env.FRONTEND_HOST as string,
     link: process.env.FRONTEND_HOST,
