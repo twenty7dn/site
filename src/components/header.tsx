@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
 import WpImage from "@/components/WpImage";
-import Tippy from "@tippyjs/react";
+import Tippy, { useSingleton } from "@tippyjs/react";
 import { animateFill } from "tippy.js";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/dist/backdrop.css";
@@ -22,6 +22,8 @@ function Header({
   const [headerState, setHeader] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+
+  const [source, target] = useSingleton();
 
   const toggleHeader = () => {
     setHeader(!headerState);
@@ -277,21 +279,26 @@ function Header({
                     <ul
                       className={`mx-auto my-0 mb-6 flex max-w-max list-none flex-row gap-1.5 p-0 text-white/50 hover:[&_a]:text-white`}
                     >
+                      <Tippy
+                       singleton={source}
+                       delay={[3000, 0]}
+                       sticky={true}
+                       hideOnClick={true}
+                       placement={"bottom"}
+                       offset={[0, 0]}
+                       arrow={false}
+                       theme={"light"}
+                       className={"scale-90"}
+                       animateFill={true}
+                       plugins={[animateFill]}
+                       moveTransition="transform 0.25s ease-in-out"
+                      />
                       {options.connect.map(
                         (connection: any, index: number) => (
                           <li key={index}>
                             <Tippy
-                                content={connection.link.title}
-                                delay={[3000, 0]}
-                                sticky={true}
-                                hideOnClick={true}
-                                placement={"bottom"}
-                                offset={[0, 0]}
-                                arrow={false}
-                                theme={"light"}
-                                className={"scale-90"}
-                                animateFill={true}
-                                plugins={[animateFill]}
+                              content={connection.link.title}
+                              singleton={target}
                             >
                               <a
                                   target={connection.link.target}

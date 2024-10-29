@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Tippy from "@tippyjs/react";
+import Tippy, { useSingleton } from "@tippyjs/react";
 import { animateFill, sticky } from "tippy.js";
 import parse, { domToReact } from "html-react-parser";
 import "tippy.js/dist/tippy.css";
@@ -25,6 +25,9 @@ function SinglePost({
   const [isVisible, setIsVisible] = useState(false);
   let [tooltipVisible, setTooltipVisible] = useState(true);
   const [tooltipData, setTooltipData] = useState<string | null>(null);
+
+  const [sourceTopics, targetTopics] = useSingleton();
+  const [sourceTags, targetTags] = useSingleton();
 
   useEffect(() => {
     const storedTooltipData = localStorage.getItem(
@@ -284,19 +287,23 @@ function SinglePost({
                       Topics
                     </h2>
                   <div>
+                    <Tippy singleton={sourceTopics}
+                           sticky={true}
+                           hideOnClick={true}
+                           placement={"bottom"}
+                           offset={[0, 2]}
+                           arrow={false}
+                           className={"scale-90"}
+                           animateFill={true}
+                           plugins={[animateFill]}
+                           moveTransition="transform 0.25s ease-in-out"
+                    />
                       {post.terms.topics.map((topic: any) => {
                         return (
                             <Tippy
                                 key={topic.id}
+                                singleton={targetTopics}
                                 content={`${topic.name} (${topic.count})`}
-                                sticky={true}
-                                hideOnClick={true}
-                                placement={"bottom"}
-                                offset={[0, 2]}
-                                arrow={false}
-                                className={"scale-90"}
-                                animateFill={true}
-                                plugins={[animateFill]}
                             >
                               <Link
                                   key={topic.id}
@@ -318,19 +325,23 @@ function SinglePost({
                           Tags
                         </h2>
                         <div>
+                          <Tippy singleton={sourceTags}
+                                 sticky={true}
+                                 hideOnClick={true}
+                                 placement={"bottom"}
+                                 offset={[0, 2]}
+                                 arrow={false}
+                                 className={"scale-90"}
+                                 animateFill={true}
+                                 plugins={[animateFill]}
+                                 moveTransition="transform 0.25s ease-in-out"
+                          />
                           {post.terms.tags.map((tag: any) => {
                             return (
                                 <Tippy
                                     key={tag.id}
+                                    singleton={targetTags}
                                     content={`${tag.name} (${tag.count})`}
-                                    sticky={true}
-                                    hideOnClick={true}
-                                    placement={"bottom"}
-                                    offset={[0, 2]}
-                                    arrow={false}
-                                    className={"scale-90"}
-                                    animateFill={true}
-                                    plugins={[animateFill]}
                                 >
                                   <Link
                                       key={tag.id}
@@ -524,19 +535,23 @@ function SinglePost({
                       Topics
                     </h2>
                     <div>
+                      <Tippy singleton={sourceTopics}
+                             sticky={true}
+                             hideOnClick={true}
+                             placement={"bottom"}
+                             offset={[0, 2]}
+                             arrow={false}
+                             className={"scale-90"}
+                             animateFill={true}
+                             plugins={[animateFill]}
+                             moveTransition="transform 0.25s ease-in-out"
+                      />
                       {post.terms.topics.map((topic: any) => {
                         return (
                           <Tippy
                               key={topic.id}
+                              singleton={targetTopics}
                               content={`${topic.name} (${topic.count})`}
-                              sticky={true}
-                              hideOnClick={true}
-                              placement={"bottom"}
-                              offset={[0, 2]}
-                              arrow={false}
-                              className={"scale-90"}
-                              animateFill={true}
-                              plugins={[animateFill]}
                           >
                             <Link
                                 key={topic.id}
@@ -558,19 +573,23 @@ function SinglePost({
                           Tags
                         </h2>
                         <div>
+                          <Tippy singleton={sourceTags}
+                                 sticky={true}
+                                 hideOnClick={true}
+                                 placement={"bottom"}
+                                 offset={[0, 2]}
+                                 arrow={false}
+                                 className={"scale-90"}
+                                 animateFill={true}
+                                 plugins={[animateFill]}
+                                 moveTransition="transform 0.25s ease-in-out"
+                          />
                           {post.terms.tags.map((tag: any) => {
                             return (
                                 <Tippy
                                     key={tag.id}
+                                    singleton={targetTags}
                                     content={`${tag.name} (${tag.count})`}
-                                    sticky={true}
-                                    hideOnClick={true}
-                                    placement={"bottom"}
-                                    offset={[0, 2]}
-                                    arrow={false}
-                                    className={"scale-90"}
-                                    animateFill={true}
-                                    plugins={[animateFill]}
                                 >
                                   <Link
                                       key={tag.id}
