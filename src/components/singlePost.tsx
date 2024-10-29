@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Tippy from "@tippyjs/react";
-import { sticky } from "tippy.js";
+import { animateFill, sticky } from "tippy.js";
 import parse, { domToReact } from "html-react-parser";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/dist/backdrop.css";
@@ -283,16 +283,29 @@ function SinglePost({
                     >
                       Topics
                     </h2>
-                    <div>
+                  <div>
                       {post.terms.topics.map((topic: any) => {
                         return (
-                            <Link
+                            <Tippy
                                 key={topic.id}
-                                href={`/topic/${topic.slug}`}
-                                className={`inline-btn font-sans font-semibold uppercase`}
+                                content={`${topic.name} (${topic.count})`}
+                                sticky={true}
+                                hideOnClick={true}
+                                placement={"bottom"}
+                                offset={[0, 2]}
+                                arrow={false}
+                                className={"scale-90"}
+                                animateFill={true}
+                                plugins={[animateFill]}
                             >
-                              {topic.name}
-                            </Link>
+                              <Link
+                                  key={topic.id}
+                                  href={`/topic/${topic.slug}`}
+                                  className={`inline-btn font-sans font-semibold uppercase`}
+                              >
+                                {topic.name}
+                              </Link>
+                            </Tippy>
                         );
                       })}
                     </div>
@@ -307,13 +320,26 @@ function SinglePost({
                         <div>
                           {post.terms.tags.map((tag: any) => {
                             return (
-                                <Link
+                                <Tippy
                                     key={tag.id}
-                                    href={`/tag/${tag.slug}`}
-                                    className={`inline-btn font-sans font-semibold uppercase`}
+                                    content={`${tag.name} (${tag.count})`}
+                                    sticky={true}
+                                    hideOnClick={true}
+                                    placement={"bottom"}
+                                    offset={[0, 2]}
+                                    arrow={false}
+                                    className={"scale-90"}
+                                    animateFill={true}
+                                    plugins={[animateFill]}
                                 >
-                                  {tag.name}
-                                </Link>
+                                  <Link
+                                      key={tag.id}
+                                      href={`/topic/${tag.slug}`}
+                                      className={`inline-btn font-sans font-semibold uppercase`}
+                                  >
+                                    {tag.name}
+                                  </Link>
+                                </Tippy>
                             );
                           })}
                         </div>
@@ -500,6 +526,18 @@ function SinglePost({
                     <div>
                       {post.terms.topics.map((topic: any) => {
                         return (
+                          <Tippy
+                              key={topic.id}
+                              content={`${topic.name} (${topic.count})`}
+                              sticky={true}
+                              hideOnClick={true}
+                              placement={"bottom"}
+                              offset={[0, 2]}
+                              arrow={false}
+                              className={"scale-90"}
+                              animateFill={true}
+                              plugins={[animateFill]}
+                          >
                             <Link
                                 key={topic.id}
                                 href={`/topic/${topic.slug}`}
@@ -507,6 +545,7 @@ function SinglePost({
                             >
                               {topic.name}
                             </Link>
+                          </Tippy>
                         );
                       })}
                     </div>
@@ -521,13 +560,26 @@ function SinglePost({
                         <div>
                           {post.terms.tags.map((tag: any) => {
                             return (
-                                <Link
+                                <Tippy
                                     key={tag.id}
-                                    href={`/tag/${tag.slug}`}
-                                    className={`inline-btn font-sans font-semibold uppercase`}
+                                    content={`${tag.name} (${tag.count})`}
+                                    sticky={true}
+                                    hideOnClick={true}
+                                    placement={"bottom"}
+                                    offset={[0, 2]}
+                                    arrow={false}
+                                    className={"scale-90"}
+                                    animateFill={true}
+                                    plugins={[animateFill]}
                                 >
-                                  {tag.name}
-                                </Link>
+                                  <Link
+                                      key={tag.id}
+                                      href={`/tag/${tag.slug}`}
+                                      className={`inline-btn font-sans font-semibold uppercase`}
+                                  >
+                                    {tag.name}
+                                  </Link>
+                                </Tippy>
                             );
                           })}
                         </div>
