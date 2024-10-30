@@ -345,7 +345,7 @@ function SinglePost({
                                 >
                                   <Link
                                       key={tag.id}
-                                      href={`/topic/${tag.slug}`}
+                                      href={`/tag/${tag.slug}`}
                                       className={`inline-btn font-sans font-semibold uppercase`}
                                   >
                                     {tag.name}
