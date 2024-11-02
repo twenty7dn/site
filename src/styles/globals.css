@@ -57,7 +57,7 @@ body {
 
 .author-card,
 .toc-card {
-    @apply top-8;
+    @apply relative top-8;
 }
 
 .author-card::before,
