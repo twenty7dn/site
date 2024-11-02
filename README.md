@@ -224,7 +224,8 @@ The Twenty7 theme introduces new fields to Settings › General.
 
 - <strong>Desktop</strong>: The full footer text that will appear on larger screens.
 - <strong>Mobile</strong>: A truncated footer text that appears on smaller screens.
-<p>&copy; is used for the Copyright © symbol, and [y] displays the present year.</p>
+
+`&copy;` is used for the Copyright © symbol, and [y] displays the present year.
 
 The Twenty7 theme has settings for the "Connections" links that appear on the side-panel in the NextJS site.
 
