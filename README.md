@@ -107,7 +107,7 @@ The combination of NextJS and headless WordPress offers several advantages:
 ### Built With
 
 [![NextJS](https://img.shields.io/badge/next.js-000000?&logo=nextdotjs&style=for-the-badge)](https://nextjs.org/)
-[![WordPress](https://img.shields.io/badge/wordpress-21759b?&logo=wordpress&style=for-the-badge)](https://tailwindcss.com/)
+[![WordPress](https://img.shields.io/badge/wordpress-21759b?&logo=wordpress&style=for-the-badge)](https://wordpress.org/)
 [![TailwindCSS](https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss&style=for-the-badge)](https://tailwindcss.com/)
 [![imgix](https://img.shields.io/badge/imgix-EC663B?&logo=imgix&style=for-the-badge)](https://imgix.com/)
 
@@ -224,13 +224,13 @@ The Twenty7 theme introduces new fields to Settings › General.
 
 - <strong>Desktop</strong>: The full footer text that will appear on larger screens.
 - <strong>Mobile</strong>: A truncated footer text that appears on smaller screens.
-  `&copy; is used for the Copyright © symbol, and [y] displays the present year.`
+<p>&copy; is used for the Copyright © symbol, and [y] displays the present year.</p>
 
 The Twenty7 theme has settings for the "Connections" links that appear on the side-panel in the NextJS site.
 
 #### Settings › Connections
 
-- <strong>Link</strong>: Only the URL is used here.
+- <strong>Link</strong>: Only the URL and title is used here.
 - <strong>Icon</strong>: You can paste any SVG icon you'd like. Just make sure it's monotone, because my endpoint adds fill="currentColor" to all paths.
 
 The Twenty7 theme also redesigns the WordPress login page.
@@ -300,7 +300,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-David M. Coleman: [@davidmc.io](https://bsky.app/profile/davidmc.io) - mail@davidmc.io
+David M. Coleman: [@crossrambles.com](https://bsky.app/profile/crossrambles.com) - howdy@crossrambles.com
 
 Project Link: [https://github.com/twenty7dn/site](https://github.com/twenty7dn/site)
 
