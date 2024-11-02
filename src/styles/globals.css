@@ -173,7 +173,7 @@ picture {
     @apply hidden lg:inline-flex;
 }
 
-.toc-card li > ul {
+.toc li > ul {
     @apply pl-2;
 }
 

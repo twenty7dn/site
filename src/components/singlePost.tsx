@@ -267,7 +267,7 @@ function SinglePost({
                     </div>
                     {toc && (
                         <div
-                            className={`mt-8 hidden bg-amber-50 before:hidden 2xl:inline-block 2xl:before:block`}
+                            className={`toc mt-8 hidden bg-amber-50 before:hidden 2xl:inline-block 2xl:before:block`}
                         >
                           <h2
                               className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
@@ -519,7 +519,7 @@ function SinglePost({
                     </div>
                     {toc && (
                         <div
-                            className={`mt-8 hidden bg-amber-50 before:hidden 2xl:inline-block 2xl:before:block`}
+                            className={`toc mt-8 hidden bg-amber-50 before:hidden 2xl:inline-block 2xl:before:block`}
                         >
                           <h2
                               className={`mb-2 flex flex-col font-sans text-sm font-semibold uppercase`}
