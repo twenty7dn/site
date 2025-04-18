@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns-tz";
 import Link from "next/link";
-import WpImage from "@/components/WpImage";
+import Image from "@/components/Image";
 
 interface PostProps {
   data: any;
@@ -10,10 +10,10 @@ interface PostProps {
 
 const Post = ({ data, single }: { data: any; single: boolean }) => {
   const hasFeaturedMedia =
-    data.featured_media && data.featured_media.src && data.featured_media.fp;
+    data.cover && data.cover.source && data.cover.focus;
 
   const backgroundColor = hasFeaturedMedia
-    ? data.featured_media.color
+    ? data.cover.color.dark.muted
     : "transparent";
 
   return (
@@ -24,57 +24,59 @@ const Post = ({ data, single }: { data: any; single: boolean }) => {
       >
         {hasFeaturedMedia && single && (
           <>
-            <WpImage
-              alt={``}
-              url={data.featured_media.src}
-              className={`absolute inset-0 h-full w-full object-cover`}
-              focalPoint={[data.featured_media.fp.x, data.featured_media.fp.y]}
-              src={{
-                "(max-width: 512px)": [
+            <Image
+              source={[
                   {
-                    width: 512,
-                    height: 360,
+                      media: "(max-width: 512px)",
+                      url: data.cover.source.encrypted,
+                      params: {
+                          cover: [512, 360],
+                          focus: data.cover.focus
+                      }
                   },
-                ],
-                "(min-width: 513px)": [
                   {
-                    width: 1590,
-                    height: 512,
-                  },
-                ],
-              }}
+                      media: "(min-width: 513px)",
+                      url: data.cover.source.encrypted,
+                      params: {
+                          cover: [1590, 512],
+                          focus: data.cover.focus
+                      }
+                  }
+              ]}
+              imgClass={`absolute inset-0 h-full w-full object-cover`}
             />
 
-            {data.featured_media.credit && (
+            {data.cover.credit && (
               <span
-                className={`absolute bottom-1.5 right-2 z-20 hidden text-sm text-white/50 transition-colors hover:text-white xl:block [&_a]:text-white/75 [&_a]:transition-colors [&_a]:hover:text-white hover:[&_a]:!text-bright-sun-400`}
-                dangerouslySetInnerHTML={{ __html: data.featured_media.credit }}
+                className={`absolute bottom-1.5 right-2 z-20 hidden text-sm text-white/50 transition-colors hover:text-white xl:block [&_a]:text-white/75 [&_a]:transition-colors hover:[&_a]:text-white [&_a]:hover:text-bright-sun-400!`}
+                dangerouslySetInnerHTML={{ __html: data.cover.credit }}
               ></span>
             )}
           </>
         )}
         {hasFeaturedMedia && !single && (
           <>
-            <WpImage
-              alt={``}
-              url={data.featured_media.src}
-              className={`absolute inset-0 h-full w-full object-cover`}
-              focalPoint={[data.featured_media.fp.x, data.featured_media.fp.y]}
-              src={{
-                "(max-width: 512px)": [
-                  {
-                    width: 512,
-                    height: 360,
-                  },
-                ],
-                "(min-width: 513px)": [
-                  {
-                    width: 1590,
-                    height: 512,
-                  },
-                ],
-              }}
-            />
+              <Image
+                  source={[
+                      {
+                          media: "(max-width: 512px)",
+                          url: data.cover.source.encrypted,
+                          params: {
+                              cover: [512, 360],
+                              focus: data.cover.focus
+                          }
+                      },
+                      {
+                          media: "(min-width: 513px)",
+                          url: data.cover.source.encrypted,
+                          params: {
+                              cover: [1590, 292],
+                              focus: data.cover.focus
+                          }
+                      }
+                  ]}
+                  imgClass={`absolute inset-0 h-full w-full object-cover`}
+              />
           </>
         )}
         {data.sticky ? (
@@ -123,48 +125,48 @@ const Post = ({ data, single }: { data: any; single: boolean }) => {
           className={`relative ${single ? "mt-32 xl:mt-96" : "mt-32 xl:mt-48"} my-8 ml-[72px] mr-6 xl:ml-[96px] ${single ? "xl:w-2/3" : "xl:w-1/2"} z-20`}
         >
           <p className={`italic opacity-60`}>
-            {format(new Date(data.date), "EEEE, MMMM do, yyyy ~ h:mm a z")}
+            {format(new Date(data.date.published.raw), "EEEE, MMMM do, yyyy ~ h:mm a z")}
           </p>
           {single ? (
             <span className={`font-sans text-3xl leading-tight xl:text-5xl`}>
               <span
-                dangerouslySetInnerHTML={{ __html: data.title.rendered }}
+                dangerouslySetInnerHTML={{ __html: data.title }}
               ></span>
               {data.subtitle && (
                 <span
-                  className={`block font-serif text-lg !italic xl:text-2xl`}
-                  dangerouslySetInnerHTML={{ __html: data.subtitle.rendered }}
+                  className={`block font-serif text-lg italic! xl:text-2xl`}
+                  dangerouslySetInnerHTML={{ __html: data.subtitle }}
                 />
               )}
             </span>
           ) : (
             <Link
-              className={`post-link pointer-events-none relative block font-sans text-3xl leading-tight drop-shadow transition-all xl:text-4xl [&>span:first-of-type]:opacity-100 [&>span:first-of-type]:hover:opacity-0 [&>span:last-of-type]:opacity-0 [&>span:last-of-type]:hover:opacity-100 [&>span]:transition-all`}
-              href={`/${data.slug}`}
+              className={`post-link pointer-events-none relative block font-sans text-3xl leading-tight drop-shadow-sm transition-all xl:text-4xl [&>span:first-of-type]:opacity-100 hover:[&>span:first-of-type]:opacity-0 [&>span:last-of-type]:opacity-0 hover:[&>span:last-of-type]:opacity-100 [&>span]:transition-all`}
+              href={`/blog/${data.slug}`}
             >
               <span className={`inline-block`}>
                 <span
                   className={`pointer-events-auto max-w-max`}
-                  dangerouslySetInnerHTML={{ __html: data.title.rendered }}
+                  dangerouslySetInnerHTML={{ __html: data.title }}
                 />
                 {data.subtitle && (
                   <span
-                    className={`pointer-events-auto block max-w-max font-serif text-lg !italic xl:text-2xl`}
-                    dangerouslySetInnerHTML={{ __html: data.subtitle.rendered }}
+                    className={`pointer-events-auto block max-w-max font-serif text-lg italic! xl:text-2xl`}
+                    dangerouslySetInnerHTML={{ __html: data.subtitle }}
                   />
                 )}
               </span>
               <span
-                className={`absolute inset-0 inline-block h-full w-full bg-gradient-to-b from-bright-sun-400 to-bright-sun-600 bg-clip-text text-transparent`}
+                className={`absolute inset-0 inline-block h-full w-full bg-linear-to-b from-bright-sun-400 to-bright-sun-600 bg-clip-text text-transparent`}
               >
                 <span
                   className={`pointer-events-auto max-w-max`}
-                  dangerouslySetInnerHTML={{ __html: data.title.rendered }}
+                  dangerouslySetInnerHTML={{ __html: data.title }}
                 />
                 {data.subtitle && (
                   <span
-                    className={`block max-w-max font-serif text-lg !italic xl:text-2xl`}
-                    dangerouslySetInnerHTML={{ __html: data.subtitle.rendered }}
+                    className={`block max-w-max font-serif text-lg italic! xl:text-2xl`}
+                    dangerouslySetInnerHTML={{ __html: data.subtitle }}
                   />
                 )}
               </span>
@@ -178,11 +180,11 @@ const Post = ({ data, single }: { data: any; single: boolean }) => {
         >
           <div
             className={`mb-2 ml-[72px] mr-6 mt-8 text-lg xl:ml-[96px] xl:w-1/2`}
-            dangerouslySetInnerHTML={{ __html: data.description?.rendered }}
+            dangerouslySetInnerHTML={{ __html: data.content.summary }}
           />
           <Link
             className={`inline-link mb-8 ml-[72px] inline-block font-sans uppercase xl:ml-[96px]`}
-            href={`/${data.slug}`}
+            href={`/blog/${data.slug}`}
           >
             Read full entry
           </Link>

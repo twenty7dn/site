@@ -92,14 +92,14 @@ function PostList({
               {currentPage > 1 && (
                 <Link
                   href={prevPageUrl}
-                  className={`inline-link inline-block !p-0 uppercase`}
+                  className={`inline-link inline-block p-0! uppercase`}
                 >
                   Newer Entries
                 </Link>
               )}
               {currentPage > 1 && currentPage < totalPages && (
                 <span
-                  className={`inline-link mx-2 inline-block !p-0 opacity-25`}
+                  className={`inline-link mx-2 inline-block p-0! opacity-25`}
                 >
                   /
                 </span>
@@ -108,7 +108,7 @@ function PostList({
               {currentPage < totalPages && (
                 <Link
                   href={nextPageUrl}
-                  className={`inline-link inline-block !p-0 uppercase`}
+                  className={`inline-link inline-block p-0! uppercase`}
                 >
                   Older Entries
                 </Link>

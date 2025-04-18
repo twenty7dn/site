@@ -34,7 +34,7 @@ function Home({
 export async function getStaticPaths() {
   // Fetch total number of posts to determine the number of pages
   const res = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1`,
   );
   const totalPosts = parseInt(res.headers.get("X-WP-Total") as string, 10);
   const totalNumberOfPages = Math.ceil(totalPosts / 8);
@@ -62,9 +62,9 @@ export async function getStaticProps({ params }: any) {
 
   // Fetch Stuff
   const [options, allPostsData] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}`,
     ),
   ]);
 
@@ -72,7 +72,7 @@ export async function getStaticProps({ params }: any) {
   const totalPages = allPostsData.totalPages;
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/page/${pageNumber}/`)}`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/page/${pageNumber}/`)}`,
   ).then((res) => res.json());
 
   return {

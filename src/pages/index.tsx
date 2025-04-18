@@ -2,30 +2,22 @@ import React from "react";
 import parse from "html-react-parser";
 import Head from "next/head";
 
-import PostList from "@/components/postList";
+import HomePage from "@/components/pages/Home";
 
 function Home({
   options,
   allPosts,
-  totalPages,
-  head,
+  totalPages
 }: {
   menu: any;
   options: any;
   allPosts: any;
   totalPages: number;
-  head: any;
 }) {
   return (
     <>
-      <Head>{parse(head.head + options.favicon_html)}</Head>
-      <PostList
-        allPosts={allPosts}
-        header={false}
-        options={options}
-        pageNumber={1}
-        totalPages={totalPages}
-      />
+      {/*<Head>{parse(head.head + options.favicon)}</Head>*/}
+      <HomePage options={options} />
     </>
   );
 }
@@ -40,25 +32,20 @@ const fetchPosts = async (url: string) => {
 export async function getStaticProps() {
   // Fetch Stuff
   const [options, allPostsData] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/meta`).then((res) => res.json()),
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_API}/post?per_page=8&page=1`,
     ),
   ]);
 
   const allPosts = allPostsData.posts;
   const totalPages = allPostsData.totalPages;
 
-  const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/`)}`,
-  ).then((res) => res.json());
-
   return {
     props: {
       options,
       allPosts,
-      totalPages,
-      head,
+      totalPages
     },
     revalidate: 3600,
   };

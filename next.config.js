@@ -9,8 +9,8 @@ const nextConfig = {
   },
   trailingSlash: true,
   env: {
-    WORDPRESS_HOST: process.env.WORDPRESS_HOST,
-    FRONTEND_HOST: process.env.FRONTEND_HOST,
+    NEXT_PUBLIC_WORDPRESS_HOST: process.env.NEXT_PUBLIC_WORDPRESS_HOST,
+    NEXT_PUBLIC_FRONTEND_HOST: process.env.NEXT_PUBLIC_FRONTEND_HOST,
     IMGIX_HOST: process.env.IMGIX_HOST,
   },
   async redirects() {

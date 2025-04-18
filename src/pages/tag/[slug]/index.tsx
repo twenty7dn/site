@@ -45,7 +45,7 @@ const fetchPosts = async (url: string) => {
 };
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/tags`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/tags`);
   const tags = await res.json();
 
   const paths = tags.map((tag: any) => ({
@@ -61,12 +61,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
   // Fetch Stuff
   const [options, allPostsData, tag] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1&filter[taxonomy]=post_tag&filter[term]=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1&filter[taxonomy]=post_tag&filter[term]=${params.slug}`,
     ),
     fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/tags?slug=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/tags?slug=${params.slug}`,
     ).then((res) => res.json()),
   ]);
 
@@ -74,7 +74,7 @@ export async function getStaticProps({ params }: any) {
   const totalPages = allPostsData.totalPages;
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/tag/${params.slug}/`)}`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/tag/${params.slug}/`)}`,
   ).then((res) => res.json());
 
   return {

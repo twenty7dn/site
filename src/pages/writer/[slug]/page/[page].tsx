@@ -41,7 +41,7 @@ function Writer({
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/users`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/users`);
   const authors = await res.json();
 
   const paths = [];
@@ -53,7 +53,7 @@ export async function getStaticPaths() {
 
     // Fetch the total number of posts for the topic
     const resPosts = await fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?filter[author_name]=${author.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?filter[author_name]=${author.slug}`,
     );
     const posts = await resPosts.json();
     const totalPagesPerTopic = Math.ceil(posts.length / 8);
@@ -87,12 +87,12 @@ export async function getStaticProps({ params }: any) {
 
   // Fetch Stuff
   const [options, allPostsData, writer] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}&filter[author_name]=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}&filter[author_name]=${params.slug}`,
     ),
     fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/users?slug=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/users?slug=${params.slug}`,
     ).then((res) => res.json()),
   ]);
 
@@ -100,7 +100,7 @@ export async function getStaticProps({ params }: any) {
   const totalPages = allPostsData.totalPages;
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/writer/${params.slug}/page/${pageNumber}/`)}`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/writer/${params.slug}/page/${pageNumber}/`)}`,
   ).then((res) => res.json());
 
   return {

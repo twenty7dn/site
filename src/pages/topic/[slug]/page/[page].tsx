@@ -58,7 +58,7 @@ function Topic({
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/categories`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/categories`);
   const topics = await res.json();
 
   const paths = [];
@@ -70,7 +70,7 @@ export async function getStaticPaths() {
 
     // Fetch the total number of posts for the topic
     const resPosts = await fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?filter[taxonomy]=category&filter[term]=${topic.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?filter[taxonomy]=category&filter[term]=${topic.slug}`,
     );
     const posts = await resPosts.json();
     const totalPagesPerTopic = Math.ceil(posts.length / 8);
@@ -104,18 +104,18 @@ export async function getStaticProps({ params }: any) {
 
   // Fetch Stuff
   const [options, allPostsData, topic] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}&filter[taxonomy]=category&filter[term]=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=${pageNumber}&filter[taxonomy]=category&filter[term]=${params.slug}`,
     ),
     fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/categories?slug=${params.slug}&_embed`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/categories?slug=${params.slug}&_embed`,
     ).then((res) => res.json()),
   ]);
 
   const [breadcrumb] = await Promise.all([
     fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/term/category/${topic[0].id}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/term/category/${topic[0].id}`,
     ).then((res) => res.json()),
   ]);
 
@@ -123,7 +123,7 @@ export async function getStaticProps({ params }: any) {
   const totalPages = allPostsData.totalPages;
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/topic/${params.slug}/page/${pageNumber}/`)}`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/topic/${params.slug}/page/${pageNumber}/`)}`,
   ).then((res) => res.json());
 
   return {

@@ -6,8 +6,8 @@ const AtomFeed = () => {
 
 export async function getServerSideProps({ req, res }: { req: any; res: any }) {
   const [options, blog] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
-    fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/posts?_embed`).then((res) =>
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?_embed`).then((res) =>
       res.json(),
     ),
   ]);
@@ -17,18 +17,18 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
   const feed = new Feed({
     title: `${options?.name} › Atom Feed`,
     description: options?.description,
-    id: process.env.FRONTEND_HOST as string,
-    link: process.env.FRONTEND_HOST,
+    id: process.env.NEXT_PUBLIC_FRONTEND_HOST as string,
+    link: process.env.NEXT_PUBLIC_FRONTEND_HOST,
     language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
     image: options?.logo?.url,
-    favicon: `${process.env.WORDPRESS_HOST}/core/template/twentyseven-theme/assets/icons/favicon.ico`,
+    favicon: `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/core/template/twentyseven-theme/assets/icons/favicon.ico`,
     copyright: options?.footer?.desktop,
     updated: new Date(), // optional, default = today
     generator: "NextJS", // optional, default = 'Feed for Node.js'
     feedLinks: {
-      json: `${process.env.FRONTEND_HOST}/feed/json`,
-      rss: `${process.env.FRONTEND_HOST}/feed/rss`,
-      atom: `${process.env.FRONTEND_HOST}/feed/atom`,
+      json: `${process.env.NEXT_PUBLIC_FRONTEND_HOST}/feed/json`,
+      rss: `${process.env.NEXT_PUBLIC_FRONTEND_HOST}/feed/rss`,
+      atom: `${process.env.NEXT_PUBLIC_FRONTEND_HOST}/feed/atom`,
     },
     author: {
       name: options?.author?.name,
@@ -39,8 +39,8 @@ export async function getServerSideProps({ req, res }: { req: any; res: any }) {
   blog.map((post: any) => {
     feed.addItem({
       title: post?.title.rendered,
-      id: `${process.env.FRONTEND_HOST}/${post?.slug}`,
-      link: `${process.env.FRONTEND_HOST}/${post?.slug}`,
+      id: `${process.env.NEXT_PUBLIC_FRONTEND_HOST}/${post?.slug}`,
+      link: `${process.env.NEXT_PUBLIC_FRONTEND_HOST}/${post?.slug}`,
       description: post?.excerpt.rendered,
       content: post?.content.rendered,
       author: [

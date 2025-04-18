@@ -154,8 +154,8 @@ $ yarn install
 2. Setup your environment variables
 
 ```js
-WORDPRESS_HOST = "the_url_of_your_wordpress_blog";
-FRONTEND_HOST = "the_url_of_your_live_nextjs_site";
+NEXT_PUBLIC_WORDPRESS_HOST = "the_url_of_your_wordpress_blog";
+NEXT_PUBLIC_FRONTEND_HOST = "the_url_of_your_live_nextjs_site";
 IMGIX_HOST = "the_hostname_of_your_imgix_source"; // Note: Just the domain/subdomain. No https:// or anything else.
 ```
 

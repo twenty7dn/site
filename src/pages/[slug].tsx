@@ -6,47 +6,34 @@ import SinglePost from "@/components/singlePost";
 import SinglePage from "@/components/singlePage";
 
 export default function PostPage({
-  options,
-  currentPost,
-  latestPostsAside,
-  head,
-}: {
+                                   options,
+                                   currentPost,
+                                   latestPostsAside,
+                                 }: {
   options: any;
   currentPost: any;
   latestPostsAside: any;
-  head: any;
 }) {
   return (
-    <>
-      <Head>{parse(head.head + options.favicon_html)}</Head>
-      {currentPost[0].type === "post" ? (
-        <SinglePost
-          post={currentPost}
-          latestPosts={latestPostsAside}
-          options={options}
-        />
-      ) : (
+      <>
+        {/*<Head>{parse(String(head.head + options.favicon))}</Head>*/}
         <SinglePage
-          post={currentPost}
-          latestPosts={latestPostsAside}
-          options={options}
+            post={currentPost}
+            latestPosts={latestPostsAside}
+            options={options}
         />
-      )}
-    </>
+      </>
   );
 }
 
 export async function getStaticPaths() {
-  const [posts, pages] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/posts`).then((res) =>
-      res.json(),
-    ),
-    fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/pages`).then((res) =>
-      res.json(),
+  const [pages] = await Promise.all([
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/pages`).then((res) =>
+        res.json(),
     ),
   ]);
 
-  const allPosts = [...posts, ...pages];
+  const allPosts = [...pages];
 
   const paths = allPosts.map((post: any) => ({
     params: { slug: post.slug },
@@ -61,31 +48,23 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
   try {
     // Fetch Stuff
-    const [options, currentPosts, currentPages] = await Promise.all([
-      fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    const [options, currentPages] = await Promise.all([
+      fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/meta`).then((res) => res.json()),
       fetch(
-        `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?slug=${params.slug}&per_page=1&_embed`,
-      ).then((res) => res.json()),
-      fetch(
-        `${process.env.WORDPRESS_HOST}/api/wp/v2/pages?slug=${params.slug}&per_page=1&_embed`,
+          `${process.env.NEXT_PUBLIC_WORDPRESS_API}/page/${params.slug}&per_page=1&_embed`,
       ).then((res) => res.json()),
     ]);
 
-    const currentPost = [...currentPosts, ...currentPages];
+    const currentPost = [...currentPages];
     const latestPostsAside = await fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=3`,
-    ).then((res) => res.json());
-
-    const head = await fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/${params.slug}/`)}`,
+        `${process.env.NEXT_PUBLIC_WORDPRESS_API}/post?per_page=3`,
     ).then((res) => res.json());
 
     return {
       props: {
         options,
         currentPost,
-        latestPostsAside,
-        head,
+        latestPostsAside
       },
       revalidate: 3600,
     };
@@ -95,8 +74,7 @@ export async function getStaticProps({ params }: any) {
       props: {
         options: null,
         currentPost: null,
-        latestPostsAside: null,
-        head: null,
+        latestPostsAside: null
       },
       revalidate: 3600,
     };

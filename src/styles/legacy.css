@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+
+@config '../../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+body {
+    color: #5a5a4a;
+}
+
+@media screen and (min-width: 1536px) and (max-width: 1920px) {
+    .sidebar {
+        @apply mr-32;
+    }
+}
+
+.bar-left {
+    @apply before:absolute before:inset-0 before:right-auto before:z-10 before:w-[64px] before:bg-black/50 before:content-[''];
+}
+
+.bar-left\/50 {
+    @apply before:absolute before:inset-0 before:right-auto before:z-10 before:w-[64px] before:bg-black/10 before:content-[''];
+}
+
+.cover-gradient {
+    @apply after:absolute after:inset-0 after:top-auto after:z-10 after:h-[256px] after:bg-linear-to-b after:from-transparent after:to-black/90 after:content-[''];
+}
+
+.inline-link {
+    @apply inline-block border-b border-b-bright-sun-400 pb-[3px] text-[14px] font-bold tracking-[0.04em] text-current transition-all hover:border-b-bright-sun-800 hover:bg-bright-sun-400;
+}
+
+.inline-link:disabled {
+    @apply pointer-events-none border-b-transparent text-black/25;
+}
+
+.prose a {
+    @apply border-b border-b-bright-sun-400 no-underline transition-all hover:border-b-bright-sun-800 hover:bg-bright-sun-400;
+}
+
+.inline-btn {
+    @apply mb-[6px] mr-[6px] inline-block rounded-sm border-b border-b-bright-sun-600 bg-bright-sun-400 px-2 py-1 text-[12px] tracking-[0.04em] text-current transition-all hover:border-b-bright-sun-700 hover:bg-bright-sun-500;
+}
+
+.prose blockquote.prose-quoteless p:first-of-type::before,
+.prose blockquote.prose-quoteless p:first-of-type::after {
+    display: none;
+}
+
+.prose blockquote {
+    @apply relative border-l-2 border-l-amber-400;
+}
+
+.prose blockquote cite {
+    @apply block text-right;
+}
+
+.author-card,
+.toc-card {
+    @apply relative top-8;
+}
+
+.author-card::before,
+.toc-card::before {
+    content: "";
+    @apply hidden absolute -bottom-12 -left-4 -right-4 -top-8;
+    background-image: linear-gradient(
+        to bottom,
+        var(--color-amber-50) 0%,
+        var(--color-amber-50) calc(100% - 3em),
+        transparent 100%
+    );
+}
+
+.author-card > *,
+.toc-card > * {
+    @apply relative;
+}
+
+.author-card {
+    @apply z-20;
+}
+
+.tooltip-br > .tippy-content {
+    @apply rounded-none bg-blue-600 text-white;
+}
+.tooltip-br > .tippy-arrow {
+    @apply left-auto! right-0! transform-none!;
+}
+.tooltip-br[data-placement="top-end"] > .tippy-arrow {
+    @apply top-full!;
+}
+.tooltip-br > .tippy-arrow::before {
+    @apply left-auto! right-0! h-0! w-0! border! border-b-[8px]! border-l-[8px]! border-r-0! border-t-0! border-b-blue-600! border-l-transparent! border-r-transparent! border-t-transparent!;
+}
+.tooltip-br[data-placement="top-end"] > .tippy-arrow::before {
+    @apply top-0! border-l-0! border-r-[8px]! border-b-transparent! border-r-blue-600!;
+}
+
+.prose-dropcap > p:first-of-type:first-letter {
+    margin-top: 0.05em;
+    margin-right: 10px;
+    font-size: 3.45rem;
+    font-style: normal;
+    font-weight: bold;
+    text-shadow:
+        1px 1px 0px theme('color.amber.50'),
+        2px 2px 0px theme('color.bright-sun.400');
+    line-height: 100%;
+    float: left;
+}
+@supports (-webkit-initial-letter: 2) or (initial-letter: 2) {
+    .prose-dropcap > p:first-of-type:first-letter {
+        margin-top: 0;
+        -webkit-initial-letter-align: auto;
+        initial-letter-align: auto;
+        -webkit-initial-letter: 2;
+        initial-letter: 2;
+        float: none;
+    }
+}
+
+@supports (-moz-appearance: none) {
+    .prose-dropcap > p:first-of-type:first-letter {
+        margin-top: 0.15em;
+        -webkit-initial-letter: 2;
+        initial-letter: 2;
+    }
+}
+
+.spinner_V8m1 {
+    transform-origin: center;
+    animation: spinner_zKoa 2s linear infinite;
+}
+.spinner_V8m1 circle {
+    stroke-linecap: round;
+    animation: spinner_YpZS 1.5s ease-in-out infinite;
+}
+@keyframes spinner_zKoa {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinner_YpZS {
+    0% {
+        stroke-dasharray: 0 150;
+        stroke-dashoffset: 0;
+    }
+    47.5% {
+        stroke-dasharray: 42 150;
+        stroke-dashoffset: -16;
+    }
+    95%,
+    100% {
+        stroke-dasharray: 42 150;
+        stroke-dashoffset: -59;
+    }
+}
+
+picture {
+    margin: 0 !important;
+}
+
+.ReactModal__Overlay {
+    z-index: 999999 !important;
+}
+
+[id^="tippy"] {
+    @apply hidden xl:block;
+}
+
+.single-post footer span[class="mx-auto md:ml-auto md:mr-0"] {
+    @apply hidden lg:inline-flex;
+}
+
+.toc li > ul {
+    @apply pl-2;
+}
+
+.clearfix::before {
+    content: "";
+    display: table;
+}

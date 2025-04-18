@@ -77,10 +77,10 @@ export async function getServerSideProps(context: any) {
 
   // Fetch Stuff
   const [options, allPostsData] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
     // Fetch posts based on the search query
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/search?per_page=8&page=1&search=${query}&_embed`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/search?per_page=8&page=1&search=${query}&_embed`,
     ),
   ]);
 
@@ -88,7 +88,7 @@ export async function getServerSideProps(context: any) {
   const totalPages = allPostsData.totalPages;
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/search/${query}/`)}`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/search/${query}/`)}`,
   ).then((res) => res.json());
 
   return {

@@ -10,11 +10,11 @@ function Error({ options, head }: { options: any; head: any }) {
         id={`content`}
         className={`post-list bar-left/50 relative flex w-full flex-col bg-amber-50 before:w-[48px] xl:before:w-[64px]`}
     >
-      <Head>{parse(head.head + options.favicon_html)}</Head>
+      <Head>{parse(String(head.head + options.favicon))}</Head>
       <hr
         className={`ml-[48px] border-b-2 border-t-0 border-b-black/10 xl:ml-[64px]`}
       />
-      <header className={`relative !mt-48`}>
+      <header className={`relative mt-48!`}>
         <svg
           viewBox="0 0 24 24"
           width={20}
@@ -31,7 +31,7 @@ function Error({ options, head }: { options: any; head: any }) {
               Page Not Found
             </span>
             <span
-              className={`pointer-events-auto block max-w-max font-serif text-lg !italic xl:text-2xl`}
+              className={`pointer-events-auto block max-w-max font-serif text-lg italic! xl:text-2xl`}
             >
               HTTP Error 404
             </span>
@@ -75,11 +75,11 @@ function Error({ options, head }: { options: any; head: any }) {
 export async function getStaticProps() {
   // Fetch Stuff
   const [options] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
   ]);
 
   const head = await fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/404/`)}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/404/`)}`,
   ).then((res) => res.json());
 
   return {

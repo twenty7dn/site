@@ -4,7 +4,7 @@ import Link from "next/link";
 function PostNoBanner({ data, single }: { data: any; single: boolean }) {
   return (
     <section
-      className={`post bar-left/50 relative z-10 flex flex-col bg-amber-50 before:w-[48px] xl:before:w-[64px] [&>hr]:first-of-type:hidden [&_header]:first-of-type:mt-24`}
+      className={`post bar-left/50 relative z-10 flex flex-col bg-amber-50 before:w-[48px] xl:before:w-[64px] first-of-type:[&>hr]:hidden first-of-type:[&_header]:mt-24`}
     >
       <hr
         className={`ml-[48px] border-b-2 border-t-0 border-b-black/10 xl:ml-[64px]`}
@@ -16,7 +16,7 @@ function PostNoBanner({ data, single }: { data: any; single: boolean }) {
               viewBox="0 0 20 20"
               width={20}
               height={20}
-              className={`absolute inset-0 ${data.subtitle ? "!mb-10" : ""} ${single ? "top-auto mb-10 xl:mb-12" : "bottom-auto mt-8"} z-30 mx-[14px] fill-current xl:mx-[22px]`}
+              className={`absolute inset-0 ${data.subtitle ? "mb-10!" : ""} ${single ? "top-auto mb-10 xl:mb-12" : "bottom-auto mt-8"} z-30 mx-[14px] fill-current xl:mx-[22px]`}
             >
               <path
                 d={
@@ -31,7 +31,7 @@ function PostNoBanner({ data, single }: { data: any; single: boolean }) {
               viewBox="0 0 24 24"
               width={20}
               height={20}
-              className={`absolute inset-0 ${data.subtitle ? "!mb-10" : ""} ${single ? "top-auto mb-10 xl:mb-12" : "bottom-auto mt-8"} z-30 mx-[14px] scale-125 fill-current xl:mx-[22px]`}
+              className={`absolute inset-0 ${data.subtitle ? "mb-10!" : ""} ${single ? "top-auto mb-10 xl:mb-12" : "bottom-auto mt-8"} z-30 mx-[14px] scale-125 fill-current xl:mx-[22px]`}
             >
               <path d="M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z" />
             </svg>
@@ -41,7 +41,7 @@ function PostNoBanner({ data, single }: { data: any; single: boolean }) {
             viewBox="0 0 20 20"
             width={20}
             height={20}
-            className={`absolute inset-0 ${data.subtitle ? "!mb-10" : ""} ${single ? "top-auto mb-10 xl:mb-12" : "bottom-auto mt-8"} z-30 mx-[14px] fill-current xl:mx-[22px]`}
+            className={`absolute inset-0 ${data.subtitle ? "mb-10!" : ""} ${single ? "top-auto mb-10 xl:mb-12" : "bottom-auto mt-8"} z-30 mx-[14px] fill-current xl:mx-[22px]`}
           >
             <path
               d={
@@ -67,7 +67,7 @@ function PostNoBanner({ data, single }: { data: any; single: boolean }) {
               ></span>
               {data.subtitle && (
                 <span
-                  className={`block font-serif text-lg !italic xl:text-2xl`}
+                  className={`block font-serif text-lg italic! xl:text-2xl`}
                   dangerouslySetInnerHTML={{ __html: data.subtitle.rendered }}
                 ></span>
               )}
@@ -83,7 +83,7 @@ function PostNoBanner({ data, single }: { data: any; single: boolean }) {
               ></span>
               {data.subtitle && (
                 <span
-                  className={`pointer-events-auto block max-w-max font-serif text-lg !italic xl:text-2xl`}
+                  className={`pointer-events-auto block max-w-max font-serif text-lg italic! xl:text-2xl`}
                   dangerouslySetInnerHTML={{ __html: data.subtitle.rendered }}
                 ></span>
               )}

@@ -4,7 +4,7 @@ import React from "react";
 
 import Header from "@/components/header";
 import PostList from "@/components/postList";
-import WpImage from "@/components/WpImage";
+import Image from "@/components/image";
 
 function Writer({
   options,
@@ -41,7 +41,7 @@ function Writer({
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.WORDPRESS_HOST}/api/wp/v2/users`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/users`);
   const authors = await res.json();
 
   const paths = authors.map((author: any) => ({
@@ -64,12 +64,12 @@ const fetchPosts = async (url: string) => {
 export async function getStaticProps({ params }: any) {
   // Fetch Stuff
   const [options, allPostsData, writer] = await Promise.all([
-    fetch(`${process.env.WORDPRESS_HOST}/api`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api`).then((res) => res.json()),
     fetchPosts(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1&filter[author_name]=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/posts?per_page=8&page=1&filter[author_name]=${params.slug}`,
     ),
     fetch(
-      `${process.env.WORDPRESS_HOST}/api/wp/v2/users?slug=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/users?slug=${params.slug}`,
     ).then((res) => res.json()),
   ]);
 
@@ -77,7 +77,7 @@ export async function getStaticProps({ params }: any) {
   const totalPages = allPostsData.totalPages;
 
   const head = await fetch(
-    `${process.env.WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.WORDPRESS_HOST}/writer/${params.slug}/`)}`,
+    `${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/api/wp/v2/head/${encodeURIComponent(`${process.env.NEXT_PUBLIC_WORDPRESS_HOST}/writer/${params.slug}/`)}`,
   ).then((res) => res.json());
 
   return {

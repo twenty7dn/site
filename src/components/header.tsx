@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
-import WpImage from "@/components/WpImage";
+import Image from "@/components/Image";
 import Tippy, { useSingleton } from "@tippyjs/react";
 import { animateFill } from "tippy.js";
 import "tippy.js/dist/tippy.css";
@@ -101,8 +101,8 @@ function Header({
     <li key={item.ID}>
       <Link
         href={item.url.replace(
-          process.env.WORDPRESS_HOST,
-          process.env.FRONTEND_HOST,
+          process.env.NEXT_PUBLIC_WORDPRESS_HOST,
+          process.env.NEXT_PUBLIC_FRONTEND_HOST,
         )}
         target={item.target ? item.target : "_self"}
         className={`relative block pr-2 leading-loose text-bright-sun-400 transition-all hover:bg-bright-sun-400 hover:pl-4 hover:text-black`}
@@ -183,9 +183,9 @@ function Header({
               {renderMenuItems.map((item: any) => renderMenuItem(item))}
             </ul>
             <h3 className={`text-md my-4 uppercase text-white/50`}>Latest</h3>
-            {latestPosts && (
+            {latestPosts.posts && (
               <ul className={`flex list-none flex-col gap-2`}>
-                {latestPosts.map((post: any) => (
+                {latestPosts.posts.map((post: any) => (
                   <li key={post.id}>
                     <Link
                       className={`text-bright-sun-400 transition-colors hover:text-bright-sun-500`}
@@ -204,7 +204,7 @@ function Header({
                 handleSearch();
               }}
               action={`/search/${searchQuery}`} // Optional: You can set the action attribute to the desired URL if needed
-              className={`my-6 flex flex-row overflow-hidden rounded-md`}
+              className={`my-6 flex flex-row overflow-hidden rounded-md bg-amber-50`}
             >
               <input
                 type={`search`}
@@ -212,7 +212,7 @@ function Header({
                 placeholder={`Search`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full rounded-none px-4 py-2 placeholder:uppercase`}
+                className={`w-full rounded-none px-4 py-2 ring-none shadow-none placeholder:uppercase`}
               />
               <button type={`submit`} className={`bg-bright-sun-400 px-6 py-2`}>
                 <svg
@@ -237,29 +237,24 @@ function Header({
                   className={`mx-auto block max-w-max`}
                   onClick={closeHeader}
                 >
-                  <WpImage
-                    url={options.logo.url}
-                    src={{
-                      "": [
-                        {
-                          width: 128,
-                          height: 128,
-                        },
-                      ],
-                    }}
-                    className={`rounded-full`}
-                    alt={options.name}
-                    focalPoint={[50, 50]}
-                    size={[128, 128]}
+                  <Image
+                    source={[
+                      {
+                        url: options.design.logo.source.encrypted,
+                        params: {
+                          cover: [128, 128],
+                        }
+                      }
+                    ]}
+                    imgClass={`rounded-full`}
                   />
                 </Link>
                 <Link
                   href={`/`}
                   onClick={closeHeader}
-                  className={`mx-auto mb-2 mt-6 block max-w-max rounded px-1.5 py-1 text-center text-xl font-bold leading-tight text-bright-sun-400 transition-colors hover:bg-bright-sun-400 hover:text-black`}
+                  className={`mx-auto mb-2 mt-6 block max-w-max rounded-sm px-1.5 py-1 text-center text-xl font-bold leading-tight text-bright-sun-400 transition-colors hover:bg-bright-sun-400 hover:text-black`}
                 >
-                  <span className={`hidden lg:block`}>{options.name}</span>
-                  <span className={`block lg:hidden`}>{options.shortname}</span>
+                  {options.title}
                 </Link>
                 <p
                   className={`mx-auto mb-6 mt-0 max-w-max text-lg text-white/50`}
@@ -267,7 +262,7 @@ function Header({
                   {options.description}
                 </p>
                 <hr
-                  className={`mx-auto mb-6 mt-0 h-1.5 w-1/2 rounded-sm border-none bg-white/10`}
+                  className={`mx-auto mb-6 mt-0 h-1.5 w-1/2 rounded-xs border-none bg-white/10`}
                 />
                 {options.connect && (
                   <>
@@ -277,7 +272,7 @@ function Header({
                       Connect
                     </p>
                     <ul
-                      className={`mx-auto my-0 mb-6 flex max-w-max list-none flex-row gap-1.5 p-0 text-white/50 hover:[&_a]:text-white`}
+                      className={`mx-auto my-0 mb-6 flex max-w-max list-none flex-row gap-1.5 p-0 text-white/50 [&_a]:hover:text-white`}
                     >
                       <Tippy
                        singleton={source}
@@ -319,14 +314,14 @@ function Header({
           </div>
         </div>
       </div>
-      {options.background.credit && (
+      {options.design.background.credit && (
           <div
               className={`absolute inset-0 top-auto hidden h-10 flex-col justify-center bg-white/10 align-middle backdrop-blur-md backdrop-brightness-50 lg:flex ${headerState ? "translate-y-0" : "translate-y-full"} transition-transform`}
         >
           <span
-            className={`inline-block px-2 py-1 text-center text-xs text-white 2xl:text-sm`}
+            className={`inline-block px-2 py-1 text-center text-xs text-white 2xl:text-sm [&_a]:underline [&_a]:decoration-current/25 [&_a]:hover:decoration-current/75`}
           >
-            Background {options.background.credit}
+            Background {parse(options.background.credit)}
           </span>
         </div>
       )}
